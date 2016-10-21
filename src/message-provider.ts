@@ -50,7 +50,7 @@ export class MessageProvider {
 
                     return this._stringFormat(errorPayload.message, placeholderValues)
                 } else {
-                    return 'Uknown Error';
+                    return this.defaultMessages.unknownError;
                 }
         }
     }

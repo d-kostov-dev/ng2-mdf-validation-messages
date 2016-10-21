@@ -12,6 +12,7 @@ export class DefaultErrorMessages {
     minNumber: string;
     maxNumber: string;
     noEmpty: string;
+    unknownError: string;
 }
 
 export const defaultConfig: ValidationMessagesConfiguration = {
@@ -25,5 +26,6 @@ export const defaultConfig: ValidationMessagesConfiguration = {
         minNumber: 'Minimal value is {0}!',
         maxNumber: 'Maximal value is {0}!',
         noEmpty: 'Only blank spaces are not allowed!',
+        unknownError: 'Unknown Error!',
     },
 };
