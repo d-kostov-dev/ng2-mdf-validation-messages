@@ -14,14 +14,14 @@ import { ValidationMessagesConfiguration } from './config';
         ValidationMessageComponent
     ],
 })
-export class WwsValidationMessagesModule {
+export class Ng2MDFValidationMessagesModule {
     /**
-     * Gives the user the option to configure global values for the whole module.
+     * Configure global values for the module.
      * @param configObject Object with custom global configurations. E.g. { defaultErrorMessages: { required: 'Default Custom Required Message' }}
      */
     static globalConfig(configObject: any): ModuleWithProviders {
         return {
-            ngModule: WwsValidationMessagesModule,
+            ngModule: Ng2MDFValidationMessagesModule,
             providers: [
                 {
                     provide: ValidationMessagesConfiguration,

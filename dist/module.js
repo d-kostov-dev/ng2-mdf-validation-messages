@@ -12,12 +12,16 @@ var common_1 = require('@angular/common');
 var forms_1 = require('@angular/forms');
 var messages_component_1 = require('./messages.component');
 var config_1 = require('./config');
-var WwsValidationMessagesModule = (function () {
-    function WwsValidationMessagesModule() {
+var Ng2MDFValidationMessagesModule = (function () {
+    function Ng2MDFValidationMessagesModule() {
     }
-    WwsValidationMessagesModule.globalConfig = function (configObject) {
+    /**
+     * Configure global values for the module.
+     * @param configObject Object with custom global configurations. E.g. { defaultErrorMessages: { required: 'Default Custom Required Message' }}
+     */
+    Ng2MDFValidationMessagesModule.globalConfig = function (configObject) {
         return {
-            ngModule: WwsValidationMessagesModule,
+            ngModule: Ng2MDFValidationMessagesModule,
             providers: [
                 {
                     provide: config_1.ValidationMessagesConfiguration,
@@ -26,7 +30,7 @@ var WwsValidationMessagesModule = (function () {
             ]
         };
     };
-    WwsValidationMessagesModule = __decorate([
+    Ng2MDFValidationMessagesModule = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule, forms_1.FormsModule, forms_1.ReactiveFormsModule],
             declarations: [
@@ -37,8 +41,8 @@ var WwsValidationMessagesModule = (function () {
             ],
         }), 
         __metadata('design:paramtypes', [])
-    ], WwsValidationMessagesModule);
-    return WwsValidationMessagesModule;
+    ], Ng2MDFValidationMessagesModule);
+    return Ng2MDFValidationMessagesModule;
 }());
-exports.WwsValidationMessagesModule = WwsValidationMessagesModule;
+exports.Ng2MDFValidationMessagesModule = Ng2MDFValidationMessagesModule;
 //# sourceMappingURL=module.js.map

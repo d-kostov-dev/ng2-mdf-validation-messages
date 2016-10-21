@@ -38,7 +38,7 @@ export class ValidationMessageComponent implements OnInit {
     }
 
     /**
-     * If there are instance specific configurations they are merged with the default one.
+     * Merge instance specific configuration with the default and/or custom one.
      */
     private _mergeWithLocalConfiguration(): void {
         if (this.class) {

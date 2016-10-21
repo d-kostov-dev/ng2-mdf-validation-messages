@@ -28,16 +28,17 @@ var ValidationMessageComponent = (function () {
     };
     Object.defineProperty(ValidationMessageComponent.prototype, "errorMessage", {
         get: function () {
-            if (this.isShown) {
-                for (var errorPropertyName in this.control.errors) {
-                    return this.messageProvider.getErrorMessage(errorPropertyName, this.control.errors[errorPropertyName]);
-                }
+            for (var errorPropertyName in this.control.errors) {
+                return this.messageProvider.getErrorMessage(errorPropertyName, this.control.errors[errorPropertyName]);
             }
             return null;
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * Merge instance specific configuration with the default and/or custom one.
+     */
     ValidationMessageComponent.prototype._mergeWithLocalConfiguration = function () {
         if (this.class) {
             this.config.class = this.class;
@@ -49,15 +50,11 @@ var ValidationMessageComponent = (function () {
     ], ValidationMessageComponent.prototype, "control", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Boolean)
-    ], ValidationMessageComponent.prototype, "isShown", void 0);
-    __decorate([
-        core_1.Input(), 
         __metadata('design:type', String)
     ], ValidationMessageComponent.prototype, "class", void 0);
     ValidationMessageComponent = __decorate([
         core_1.Component({
-            selector: 'wws-validation-message',
+            selector: 'ng2-mdf-validation-message',
             template: '<span *ngIf="errorMessage !== null" [class]="config.class">{{errorMessage}}</span>'
         }),
         __param(0, core_1.Optional()), 

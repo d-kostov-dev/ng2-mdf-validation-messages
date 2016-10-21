@@ -3,6 +3,10 @@
 const emailRegExp: RegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
 export class ValidationExtensions {
+    /**
+     * Set the input as required.
+     * @param message Custom error message that will be shown to the user.
+     */
     static required(message: string = null): ValidatorFn {
         return (control: FormControl): { [key: string]: any } => {
             let validationResult = Validators.required(control);
@@ -19,6 +23,33 @@ export class ValidationExtensions {
         };
     }
 
+    /**
+     * Will not accept input containing only empty spaces.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static noEmpty(message: string = null): ValidatorFn {
+        return (control: FormControl): { [key: string]: any } => {
+            if (Validators.required(control)) {
+                return null;
+            }
+
+            if (control.value.trim() === "") {
+                return {
+                    noEmpty: {
+                        message: message,
+                    }
+                };
+            } else {
+                return null;
+            }
+        };
+    }
+
+    /**
+     * Set the minimal required length of the input value
+     * @param length Minimal length.
+     * @param message Custom error message that will be shown to the user. Supports placeholders.
+     */
     static minLength(length: number, message: string = null): ValidatorFn {
         return (control: FormControl): { [key: string]: any } => {
             if (Validators.required(control)) {
@@ -35,6 +66,11 @@ export class ValidationExtensions {
         };
     }
 
+    /**
+     * Set the maximal required length of the input value
+     * @param length Maximal length.
+     * @param message Custom error message that will be shown to the user. Supports placeholders.
+     */
     static maxLength(length: number, message: string): ValidatorFn {
         return (control: FormControl): { [key: string]: any } => {
             if (Validators.required(control)) {
@@ -51,6 +87,11 @@ export class ValidationExtensions {
         };
     }
 
+    /**
+     * Set the minimal required value of the number input
+     * @param min Minimal value.
+     * @param message Custom error message that will be shown to the user. Supports placeholders.
+     */
     static minNumber(min: number, message: string = null): ValidatorFn {
         return (control: FormControl): { [key: string]: any } => {
             if (Validators.required(control)) {
@@ -74,6 +115,11 @@ export class ValidationExtensions {
         };
     }
 
+    /**
+     * Set the maximal required value of the number input
+     * @param max Maximal value.
+     * @param message Custom error message that will be shown to the user. Supports placeholders.
+     */
     static maxNumber(max: number, message: string = null): ValidatorFn {
         return (control: FormControl): { [key: string]: any } => {
             if (Validators.required(control)) {
@@ -97,6 +143,10 @@ export class ValidationExtensions {
         };
     }
 
+    /**
+     * Requires a valid email input.
+     * @param message Custom error message that will be shown to the user.
+     */
     static email(message: string = null): ValidatorFn {
         return (control: FormControl): { [key: string]: any } => {
             if (Validators.required(control)) {
@@ -113,6 +163,11 @@ export class ValidationExtensions {
         };
     }
 
+    /**
+     * Requires the input to follow a specific pattern.
+     * @param pattern The required pattern.
+     * @param message Custom error message that will be shown to the user.
+     */
     static pattern(pattern: string, message: string = null): ValidatorFn {
         return (control: FormControl): { [key: string]: any } => {
             if (Validators.required(control)) {

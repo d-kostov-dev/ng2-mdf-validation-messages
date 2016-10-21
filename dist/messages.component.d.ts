@@ -5,12 +5,14 @@ import { MessageProvider } from './message-provider';
 export declare class ValidationMessageComponent implements OnInit {
     private customConfig;
     control: FormControl;
-    isShown: boolean;
     class: string;
     config: ValidationMessagesConfiguration;
     messageProvider: MessageProvider;
     constructor(customConfig: ValidationMessagesConfiguration);
     ngOnInit(): void;
     readonly errorMessage: string;
+    /**
+     * Merge instance specific configuration with the default and/or custom one.
+     */
     private _mergeWithLocalConfiguration();
 }

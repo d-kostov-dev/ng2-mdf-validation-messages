@@ -1,8 +1,13 @@
 var forms_1 = require('@angular/forms');
 var emailRegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+// TODO: Trim empty strings
 var ValidationExtensions = (function () {
     function ValidationExtensions() {
     }
+    /**
+     * Set the input as required.
+     * @param message Custom error message that will be shown to the user.
+     */
     ValidationExtensions.required = function (message) {
         if (message === void 0) { message = null; }
         return function (control) {

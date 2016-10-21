@@ -1,3 +1,7 @@
+export declare class ValidationMessagesConfiguration {
+    class: string;
+    defaultErrorMessages: DefaultErrorMessages;
+}
 export declare class DefaultErrorMessages {
     required: string;
     pattern: string;
@@ -6,9 +10,5 @@ export declare class DefaultErrorMessages {
     maxLength: string;
     minNumber: string;
     maxNumber: string;
-}
-export declare class ValidationMessagesConfiguration {
-    class: string;
-    defaultErrorMessages: DefaultErrorMessages;
 }
 export declare const defaultConfig: ValidationMessagesConfiguration;

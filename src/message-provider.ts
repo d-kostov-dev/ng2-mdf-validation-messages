@@ -34,6 +34,9 @@ export class MessageProvider {
             case 'pattern':
                 return errorPayload.message ? errorPayload.message : this.defaultMessages.pattern;
 
+            case 'noEmpty':
+                return errorPayload.message ? errorPayload.message : this.defaultMessages.noEmpty;
+
             default:
                 return 'Uknown Error';
         }

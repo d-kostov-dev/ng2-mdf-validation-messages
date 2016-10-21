@@ -1,5 +1,9 @@
 import { ValidatorFn } from '@angular/forms';
 export declare class ValidationExtensions {
+    /**
+     * Set the input as required.
+     * @param message Custom error message that will be shown to the user.
+     */
     static required(message?: string): ValidatorFn;
     static minLength(length: number, message?: string): ValidatorFn;
     static maxLength(length: number, message: string): ValidatorFn;
