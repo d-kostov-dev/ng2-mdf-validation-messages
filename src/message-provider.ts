@@ -38,7 +38,20 @@ export class MessageProvider {
                 return errorPayload.message ? errorPayload.message : this.defaultMessages.noEmpty;
 
             default:
-                return 'Uknown Error';
+                // TODO: Test this
+                if (errorPayload.message) {
+                    let placeholderValues: any[] = [];
+
+                    for (let key in errorPayload) {
+                        if (key !== 'message') {
+                            placeholderValues.push(errorPayload[key]);
+                        }
+                    }
+
+                    return this._stringFormat(errorPayload.message, placeholderValues)
+                } else {
+                    return 'Uknown Error';
+                }
         }
     }
 
