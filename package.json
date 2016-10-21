@@ -1,0 +1,53 @@
+{
+  "name": "ng2-mdf-validation-messages",
+  "version": "0.1.0",
+  "description": "Angular 2 model driven forms validation messages module.",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "start": "rimraf demo-app/node_modules/ng2-mdf-validation-messages && tsc -w --outDir demo-app/node_modules/ng2-mdf-validation-messages",
+    "lint": "tslint src/**/*.ts",
+    "build.prod": "rimraf dist && tsc --outDir dist",
+    "test": "karma start",
+    "postinstall": "typings install"
+  },
+  "keywords": [
+    "angular 2 validation",
+    "ng2 validation",
+    "ng2 validation messages",
+    "angular 2 validation messages"
+  ],
+  "author": "Dimitar Kostov",
+  "license": "MIT",
+  "devDependencies": {
+    "@angular/core": "2.1.0-beta.0",
+    "@angular/common": "2.1.0-beta.0",
+    "@angular/compiler": "2.1.0-beta.0",
+    "@angular/forms": "2.1.0-beta.0",
+    "@angular/platform-browser": "2.1.0-beta.0",
+    "@angular/platform-browser-dynamic": "2.1.0-beta.0",
+    "core-js": "2.4.1",
+    "rxjs": "5.0.0-beta.12",
+    "zone.js": "0.6.23",
+
+    "angular2-template-loader": "0.5.0",
+    "awesome-typescript-loader": "2.2.1",
+    "rimraf": "2.5.2",
+    "typescript": "2.0.0",
+    "typings": "1.0.4",
+    "tslint": "3.15.1",
+    "webpack": "2.1.0-beta.22",
+    "jasmine-core": "2.5.0",
+    "karma": "1.2.0",
+    "karma-jasmine": "1.0.2",
+    "karma-chrome-launcher": "2.0.0",
+    "karma-html-reporter": "0.2.7",
+    "karma-mocha-reporter": "2.2.0",
+    "karma-phantomjs-launcher": "1.0.2",
+    "karma-sourcemap-loader": "0.3.7",
+    "karma-webpack": "1.8.0",
+    "phantomjs-prebuilt": "2.1.12",
+    "webpack-dev-server": "2.1.0-beta.2",
+    "reflect-metadata": "0.1.8"
+  }
+}
