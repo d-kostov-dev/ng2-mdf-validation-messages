@@ -21,8 +21,8 @@
     "typings/index.d.ts",
     "typings/modules",
     "dist",
-    "demo-app",
-    "tests"
+    "tests",
+    "demo-app"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,

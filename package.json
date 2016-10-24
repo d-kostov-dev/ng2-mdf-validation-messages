@@ -7,7 +7,7 @@
   "scripts": {
     "start": "rimraf demo-app/node_modules/ng2-mdf-validation-messages && tsc -w --outDir demo-app/node_modules/ng2-mdf-validation-messages",
     "lint": "tslint src/**/*.ts",
-    "build.prod": "npm run lint && rimraf dist && tsc --outDir dist",
+    "build.prod": "npm run lint && npm run test && rimraf dist && tsc --outDir dist",
     "test": "karma start",
     "postinstall": "typings install"
   },

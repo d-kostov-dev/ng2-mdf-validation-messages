@@ -67,6 +67,7 @@ var ValidationExtensions = (function () {
      * @param message Custom error message that will be shown to the user. Supports placeholders.
      */
     ValidationExtensions.maxLength = function (length, message) {
+        if (message === void 0) { message = null; }
         return function (control) {
             if (forms_1.Validators.required(control)) {
                 return null;
@@ -87,9 +88,6 @@ var ValidationExtensions = (function () {
         if (message === void 0) { message = null; }
         return function (control) {
             if (forms_1.Validators.required(control)) {
-                return null;
-            }
-            if (isNaN(control.value)) {
                 return null;
             }
             if (control.value >= min) {
@@ -114,9 +112,6 @@ var ValidationExtensions = (function () {
         if (message === void 0) { message = null; }
         return function (control) {
             if (forms_1.Validators.required(control)) {
-                return null;
-            }
-            if (isNaN(control.value)) {
                 return null;
             }
             if (control.value <= max) {
@@ -147,7 +142,9 @@ var ValidationExtensions = (function () {
             }
             else {
                 return {
-                    email: true
+                    email: {
+                        message: message,
+                    }
                 };
             }
         };

@@ -21,7 +21,7 @@ export declare class ValidationExtensions {
      * @param length Maximal length.
      * @param message Custom error message that will be shown to the user. Supports placeholders.
      */
-    static maxLength(length: number, message: string): ValidatorFn;
+    static maxLength(length: number, message?: string): ValidatorFn;
     /**
      * Set the minimal required value of the number input
      * @param min Minimal value.

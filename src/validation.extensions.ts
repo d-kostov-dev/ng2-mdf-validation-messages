@@ -71,7 +71,7 @@ export class ValidationExtensions {
      * @param length Maximal length.
      * @param message Custom error message that will be shown to the user. Supports placeholders.
      */
-    static maxLength(length: number, message: string): ValidatorFn {
+    static maxLength(length: number, message: string = null): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
                 return null;
@@ -98,10 +98,6 @@ export class ValidationExtensions {
                 return null;
             }
 
-            if (isNaN(control.value)) {
-                return null;
-            }
-
             if (control.value >= min) {
                 return null;
             } else {
@@ -123,10 +119,6 @@ export class ValidationExtensions {
     static maxNumber(max: number, message: string = null): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
-                return null;
-            }
-
-            if (isNaN(control.value)) {
                 return null;
             }
 
@@ -157,7 +149,9 @@ export class ValidationExtensions {
                 return null;
             } else {
                 return {
-                    email: true
+                    email: {
+                        message: message,
+                    }
                 };
             }
         };
@@ -191,4 +185,5 @@ export class ValidationExtensions {
     // TODO: Add equal
     // TODO: Add url
     // TODO: Add Compose
+    // TODO: Add number
 }
