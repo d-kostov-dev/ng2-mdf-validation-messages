@@ -4,7 +4,7 @@ import { ValidationExtensions } from '../src/validation.extensions.ts';
 
 const CUSTOM_MESSAGE = 'Lorem ipsum';
 
-describe('Testing Validation Extensions', () => {
+describe('Testing The Validation Extensions', () => {
     describe('Testing "required" Validation', () => {
         it('should return required error with empty message', () => {
             let control = new FormControl(null);

@@ -11,6 +11,7 @@ var MessageProvider = (function () {
      * @param errorPayload Provides custom message and/or the required value. E.g. for ValidationExtensions.minNumber(18) the payload will contain the value "18"
      */
     MessageProvider.prototype.getErrorMessage = function (errorType, errorPayload) {
+        // TODO: Throw exception on inadequate errorPayload;
         switch (errorType) {
             case 'required':
                 return errorPayload.message ? errorPayload.message : this.defaultMessages.required;
