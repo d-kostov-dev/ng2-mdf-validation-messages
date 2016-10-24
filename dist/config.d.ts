@@ -10,5 +10,7 @@ export declare class DefaultErrorMessages {
     maxLength: string;
     minNumber: string;
     maxNumber: string;
+    noEmpty: string;
+    unknownError: string;
 }
 export declare const defaultConfig: ValidationMessagesConfiguration;

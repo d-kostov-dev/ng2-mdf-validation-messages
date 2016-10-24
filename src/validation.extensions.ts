@@ -1,4 +1,4 @@
-﻿import { FormControl, Validators, ValidatorFn } from '@angular/forms';
+﻿import { AbstractControl, Validators, ValidatorFn } from '@angular/forms';
 
 const emailRegExp: RegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
@@ -8,7 +8,7 @@ export class ValidationExtensions {
      * @param message Custom error message that will be shown to the user.
      */
     static required(message: string = null): ValidatorFn {
-        return (control: FormControl): { [key: string]: any } => {
+        return (control: AbstractControl): { [key: string]: any } => {
             let validationResult = Validators.required(control);
 
             if (validationResult) {
@@ -28,12 +28,12 @@ export class ValidationExtensions {
      * @param message Custom error message that will be shown to the user.
      */
     static noEmpty(message: string = null): ValidatorFn {
-        return (control: FormControl): { [key: string]: any } => {
+        return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
                 return null;
             }
 
-            if (control.value.trim() === "") {
+            if (control.value.trim() === '') {
                 return {
                     noEmpty: {
                         message: message,
@@ -51,7 +51,7 @@ export class ValidationExtensions {
      * @param message Custom error message that will be shown to the user. Supports placeholders.
      */
     static minLength(length: number, message: string = null): ValidatorFn {
-        return (control: FormControl): { [key: string]: any } => {
+        return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
                 return null;
             }
@@ -72,7 +72,7 @@ export class ValidationExtensions {
      * @param message Custom error message that will be shown to the user. Supports placeholders.
      */
     static maxLength(length: number, message: string): ValidatorFn {
-        return (control: FormControl): { [key: string]: any } => {
+        return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
                 return null;
             }
@@ -93,7 +93,7 @@ export class ValidationExtensions {
      * @param message Custom error message that will be shown to the user. Supports placeholders.
      */
     static minNumber(min: number, message: string = null): ValidatorFn {
-        return (control: FormControl): { [key: string]: any } => {
+        return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
                 return null;
             }
@@ -121,7 +121,7 @@ export class ValidationExtensions {
      * @param message Custom error message that will be shown to the user. Supports placeholders.
      */
     static maxNumber(max: number, message: string = null): ValidatorFn {
-        return (control: FormControl): { [key: string]: any } => {
+        return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
                 return null;
             }
@@ -148,7 +148,7 @@ export class ValidationExtensions {
      * @param message Custom error message that will be shown to the user.
      */
     static email(message: string = null): ValidatorFn {
-        return (control: FormControl): { [key: string]: any } => {
+        return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
                 return null;
             }
@@ -169,7 +169,7 @@ export class ValidationExtensions {
      * @param message Custom error message that will be shown to the user.
      */
     static pattern(pattern: string, message: string = null): ValidatorFn {
-        return (control: FormControl): { [key: string]: any } => {
+        return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
                 return null;
             }
@@ -188,8 +188,7 @@ export class ValidationExtensions {
     // TODO: Add rangeLength
     // TODO: Add equalTo (for passwords)
     // TODO: Add date
-    // TODO: Add number
     // TODO: Add equal
     // TODO: Add url
-    // TODO: Add creditCard
+    // TODO: Add Compose
 }

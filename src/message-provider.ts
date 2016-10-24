@@ -48,7 +48,7 @@ export class MessageProvider {
                         }
                     }
 
-                    return this._stringFormat(errorPayload.message, placeholderValues)
+                    return this._stringFormat(errorPayload.message, placeholderValues);
                 } else {
                     return this.defaultMessages.unknownError;
                 }

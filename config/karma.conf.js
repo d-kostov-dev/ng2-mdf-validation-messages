@@ -27,11 +27,7 @@ module.exports = function (config) {
             noInfo: true
         },
 
-        htmlReporter: {
-            outputDir: 'testing_results', // where to put the reports  
-        },
-
-        reporters: ['mocha', 'html'],
+        reporters: ['mocha'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,

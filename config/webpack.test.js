@@ -1,6 +1,4 @@
-﻿var helpers = require('./helpers');
-
-module.exports = {
+﻿module.exports = {
     devtool: 'inline-source-map',
 
     resolve: {
@@ -11,7 +9,7 @@ module.exports = {
         loaders: [
           {
               test: /\.ts$/,
-              loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+              loaders: ['awesome-typescript-loader']
           },
         ]
     }

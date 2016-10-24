@@ -26,8 +26,22 @@ var MessageProvider = (function () {
                 return errorPayload.message ? this._stringFormat(errorPayload.message, errorPayload.requiredRange) : this._stringFormat(this.defaultMessages.maxNumber, errorPayload.requiredRange);
             case 'pattern':
                 return errorPayload.message ? errorPayload.message : this.defaultMessages.pattern;
+            case 'noEmpty':
+                return errorPayload.message ? errorPayload.message : this.defaultMessages.noEmpty;
             default:
-                return 'Uknown Error';
+                // TODO: Test this
+                if (errorPayload.message) {
+                    var placeholderValues = [];
+                    for (var key in errorPayload) {
+                        if (key !== 'message') {
+                            placeholderValues.push(errorPayload[key]);
+                        }
+                    }
+                    return this._stringFormat(errorPayload.message, placeholderValues);
+                }
+                else {
+                    return this.defaultMessages.unknownError;
+                }
         }
     };
     /**

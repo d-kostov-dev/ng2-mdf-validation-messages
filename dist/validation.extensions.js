@@ -1,6 +1,5 @@
 var forms_1 = require('@angular/forms');
 var emailRegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-// TODO: Trim empty strings
 var ValidationExtensions = (function () {
     function ValidationExtensions() {
     }
@@ -22,6 +21,33 @@ var ValidationExtensions = (function () {
             return validationResult;
         };
     };
+    /**
+     * Will not accept input containing only empty spaces.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.noEmpty = function (message) {
+        if (message === void 0) { message = null; }
+        return function (control) {
+            if (forms_1.Validators.required(control)) {
+                return null;
+            }
+            if (control.value.trim() === '') {
+                return {
+                    noEmpty: {
+                        message: message,
+                    }
+                };
+            }
+            else {
+                return null;
+            }
+        };
+    };
+    /**
+     * Set the minimal required length of the input value
+     * @param length Minimal length.
+     * @param message Custom error message that will be shown to the user. Supports placeholders.
+     */
     ValidationExtensions.minLength = function (length, message) {
         if (message === void 0) { message = null; }
         return function (control) {
@@ -35,6 +61,11 @@ var ValidationExtensions = (function () {
             return validationResult;
         };
     };
+    /**
+     * Set the maximal required length of the input value
+     * @param length Maximal length.
+     * @param message Custom error message that will be shown to the user. Supports placeholders.
+     */
     ValidationExtensions.maxLength = function (length, message) {
         return function (control) {
             if (forms_1.Validators.required(control)) {
@@ -47,6 +78,11 @@ var ValidationExtensions = (function () {
             return validationResult;
         };
     };
+    /**
+     * Set the minimal required value of the number input
+     * @param min Minimal value.
+     * @param message Custom error message that will be shown to the user. Supports placeholders.
+     */
     ValidationExtensions.minNumber = function (min, message) {
         if (message === void 0) { message = null; }
         return function (control) {
@@ -69,6 +105,11 @@ var ValidationExtensions = (function () {
             }
         };
     };
+    /**
+     * Set the maximal required value of the number input
+     * @param max Maximal value.
+     * @param message Custom error message that will be shown to the user. Supports placeholders.
+     */
     ValidationExtensions.maxNumber = function (max, message) {
         if (message === void 0) { message = null; }
         return function (control) {
@@ -91,6 +132,10 @@ var ValidationExtensions = (function () {
             }
         };
     };
+    /**
+     * Requires a valid email input.
+     * @param message Custom error message that will be shown to the user.
+     */
     ValidationExtensions.email = function (message) {
         if (message === void 0) { message = null; }
         return function (control) {
@@ -107,6 +152,11 @@ var ValidationExtensions = (function () {
             }
         };
     };
+    /**
+     * Requires the input to follow a specific pattern.
+     * @param pattern The required pattern.
+     * @param message Custom error message that will be shown to the user.
+     */
     ValidationExtensions.pattern = function (pattern, message) {
         if (message === void 0) { message = null; }
         return function (control) {
