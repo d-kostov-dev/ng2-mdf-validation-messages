@@ -1,16 +1,11 @@
 {
-  "name": "angular-quickstart",
-  "version": "1.0.0",
+  "name": "ng2-mdf-validation-messages-demo-app",
+  "version": "0.1.0",
   "scripts": {
     "start": "concurrently \"tsc -w --outDir build\" \"lite-server\"",
     "postinstall": "typings install"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/angular/angular.io/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "dependencies": {
     "@angular/common": "2.0.2",
     "@angular/compiler": "2.0.2",
