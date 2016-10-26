@@ -1,6 +1,6 @@
 {
   "name": "ng2-mdf-validation-messages-demo-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "start": "concurrently \"tsc -w --outDir build\" \"lite-server\"",
     "postinstall": "typings install"
