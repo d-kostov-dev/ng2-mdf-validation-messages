@@ -1,7 +1,13 @@
 {
   "name": "ng2-mdf-validation-messages",
-  "version": "0.1.0",
   "description": "Angular 2 model driven forms validation messages module.",
+  "keywords": [
+    "angular 2 validation",
+    "ng2 validation",
+    "ng2 validation messages",
+    "angular 2 validation messages"
+  ],
+  "version": "0.1.0",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
@@ -11,12 +17,11 @@
     "test": "karma start",
     "postinstall": "typings install"
   },
-  "keywords": [
-    "angular 2 validation",
-    "ng2 validation",
-    "ng2 validation messages",
-    "angular 2 validation messages"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d-kostov-dev/ng2-mdf-validation-messages"
+  },
+  "bugs": "https://github.com/d-kostov-dev/ng2-mdf-validation-messages/issues",
   "author": "Dimitar Kostov",
   "license": "MIT",
   "devDependencies": {
