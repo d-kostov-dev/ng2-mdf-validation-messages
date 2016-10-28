@@ -37,7 +37,6 @@ export class MessageProvider {
                 return this._stringFormat(errorMessageActual, [errorPayload.rangeMin, errorPayload.rangeMax]);
 
             default:
-                // TODO: Test this
                 if (!errorPayload.message) {
                     return this.defaultMessages.unknownError;
                 }
