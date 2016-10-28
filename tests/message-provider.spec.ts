@@ -1,4 +1,4 @@
-﻿import { defaultConfig, DefaultErrorMessages } from '../src/config';
+﻿import { defaultConfig } from '../src/config';
 import { MessageProvider } from '../src/message-provider';
 
 const messageProvider = new MessageProvider(defaultConfig.defaultErrorMessages);
@@ -50,7 +50,7 @@ describe('Testing The Message Provider', () => {
             expect(actual).toEqual(expected);
         });
 
-        it('should return default message empty', () => {
+        it('should return default message empty payload', () => {
             let actual = messageProvider.getErrorMessage('email', '');
             let expected = defaultConfig.defaultErrorMessages.email;
 
@@ -79,7 +79,7 @@ describe('Testing The Message Provider', () => {
             expect(actual).toEqual(expected);
         });
 
-        it('should return default message empty', () => {
+        it('should return default message empty payload', () => {
             let actual = messageProvider.getErrorMessage('pattern', '');
             let expected = defaultConfig.defaultErrorMessages.pattern;
 
@@ -108,7 +108,7 @@ describe('Testing The Message Provider', () => {
             expect(actual).toEqual(expected);
         });
 
-        it('should return default message empty', () => {
+        it('should return default message empty payload', () => {
             let actual = messageProvider.getErrorMessage('noEmpty', '');
             let expected = defaultConfig.defaultErrorMessages.noEmpty;
 
@@ -130,7 +130,7 @@ describe('Testing The Message Provider', () => {
             }).toThrow();
         });
 
-        it('should return default message when boolean', () => {
+        it('should return default message when payload without message', () => {
             let actual = messageProvider.getErrorMessage('minlength', { requiredLength: 3 });
             let expected = stringFormat(defaultConfig.defaultErrorMessages.minLength, 3);
 
@@ -152,7 +152,7 @@ describe('Testing The Message Provider', () => {
             }).toThrow();
         });
 
-        it('should return default message when boolean', () => {
+        it('should return default message when payload without message', () => {
             let actual = messageProvider.getErrorMessage('maxlength', { requiredLength: 3 });
             let expected = stringFormat(defaultConfig.defaultErrorMessages.maxLength, 3);
 
@@ -174,7 +174,7 @@ describe('Testing The Message Provider', () => {
             }).toThrow();
         });
 
-        it('should return default message when boolean', () => {
+        it('should return default message when payload without message', () => {
             let actual = messageProvider.getErrorMessage('minNumber', { requiredRange: 3 });
             let expected = stringFormat(defaultConfig.defaultErrorMessages.minNumber, 3);
 
@@ -196,7 +196,7 @@ describe('Testing The Message Provider', () => {
             }).toThrow();
         });
 
-        it('should return default message when boolean', () => {
+        it('should return default message when payload without message', () => {
             let actual = messageProvider.getErrorMessage('maxNumber', { requiredRange: 3 });
             let expected = stringFormat(defaultConfig.defaultErrorMessages.maxNumber, 3);
 
@@ -218,11 +218,9 @@ describe('Testing The Message Provider', () => {
             }).toThrow();
         });
 
-        it('should return default message whit data', () => {
+        it('should return default message with data', () => {
             let actual = messageProvider.getErrorMessage('rangeLength', { rangeMin: 5, rangeMax: 10 });
             let expected = stringFormat(defaultConfig.defaultErrorMessages.rangeLength, [5, 10]);
-
-            console.log(actual);
 
             expect(actual).toEqual(expected);
         });
@@ -230,8 +228,6 @@ describe('Testing The Message Provider', () => {
         it('should return custom message', () => {
             let actual = messageProvider.getErrorMessage('rangeLength', { message: CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, rangeMin: 5, rangeMax: 10 });
             let expected = stringFormat(CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, [5, 10]);
-
-            console.log(actual);
 
             expect(actual).toEqual(expected);
         });
@@ -244,11 +240,9 @@ describe('Testing The Message Provider', () => {
             }).toThrow();
         });
 
-        it('should return default message whit data', () => {
+        it('should return default message with data', () => {
             let actual = messageProvider.getErrorMessage('range', { rangeMin: 5, rangeMax: 10 });
             let expected = stringFormat(defaultConfig.defaultErrorMessages.range, [5, 10]);
-
-            console.log(actual);
 
             expect(actual).toEqual(expected);
         });
@@ -257,14 +251,41 @@ describe('Testing The Message Provider', () => {
             let actual = messageProvider.getErrorMessage('range', { message: CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, rangeMin: 5, rangeMax: 10 });
             let expected = stringFormat(CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, [5, 10]);
 
-            console.log(actual);
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('Testing unexisting error messages', () => {
+        it('should throw error when null payload', () => {
+            expect(function () {
+                messageProvider.getErrorMessage(null, null);
+            }).toThrow();
+        });
+
+        it('should return default message when empty payload', () => {
+            let actual = messageProvider.getErrorMessage('unexisting', '');
+            let expected = stringFormat(defaultConfig.defaultErrorMessages.unknownError);
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return default message when payload without message', () => {
+            let actual = messageProvider.getErrorMessage('unexisting', {});
+            let expected = stringFormat(defaultConfig.defaultErrorMessages.unknownError);
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return custom message', () => {
+            let actual = messageProvider.getErrorMessage('unexisting', { message: CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, rangeMin: 5, rangeMax: 10 });
+            let expected = stringFormat(CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, [5, 10]);
 
             expect(actual).toEqual(expected);
         });
     });
 });
 
-function stringFormat(text: string, params: any): string {
+function stringFormat(text: string, params?: any): string {
     if (params) {
         if (!Array.isArray(params)) {
             params = [params];
