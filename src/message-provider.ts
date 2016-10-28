@@ -38,6 +38,12 @@ export class MessageProvider {
             case 'noEmpty':
                 return errorPayload.message ? errorPayload.message : this.defaultMessages.noEmpty;
 
+            case 'rangeLength':
+                return errorPayload.message ? this._stringFormat(errorPayload.message, [errorPayload.rangeMin, errorPayload.rangeMax]) : this._stringFormat(this.defaultMessages.rangeLength, [errorPayload.rangeMin, errorPayload.rangeMax]);
+
+            case 'range':
+                return errorPayload.message ? this._stringFormat(errorPayload.message, [errorPayload.rangeMin, errorPayload.rangeMax]) : this._stringFormat(this.defaultMessages.range, [errorPayload.rangeMin, errorPayload.rangeMax]);
+
             default:
                 // TODO: Test this
                 if (errorPayload.message) {
@@ -61,10 +67,16 @@ export class MessageProvider {
      * @param text Text with placeholders. E.g: "Hello {0}"
      * @param params The params that will replace the placeholders. E.g: ['World'] or when single value only 'World'
      */
-    private _stringFormat(text: string, ...params: any[]): string {
-        params.forEach((value: any, index: number) => {
-            text = text.replace(new RegExp('\\{' + index + '\\}', 'g'), value);
-        });
+    private _stringFormat(text: string, params: any): string {
+        if (params) {
+            if (!Array.isArray(params)) {
+                params = [params];
+            }
+
+            params.forEach((value: any, index: number) => {
+                text = text.replace(new RegExp('\\{' + index + '\\}', 'g'), value);
+            });
+        }
 
         return text;
     }

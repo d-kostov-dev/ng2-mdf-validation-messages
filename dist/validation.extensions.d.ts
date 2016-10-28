@@ -45,4 +45,18 @@ export declare class ValidationExtensions {
      * @param message Custom error message that will be shown to the user.
      */
     static pattern(pattern: string, message?: string): ValidatorFn;
+    /**
+     * Requires the input length to be between specific range.
+     * @param min Required minimum length.
+     * @param max Required maximum length.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static rangeLength(min: number, max: number, message?: string): ValidatorFn;
+    /**
+    * Requires the input value to be between specific range.
+    * @param min Required minimum value.
+    * @param max Required maximum value.
+    * @param message Custom error message that will be shown to the user.
+    */
+    static range(min: number, max: number, message?: string): ValidatorFn;
 }
