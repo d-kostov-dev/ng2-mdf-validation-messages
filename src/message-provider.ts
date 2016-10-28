@@ -38,19 +38,15 @@ export class MessageProvider {
 
             default:
                 // TODO: Test this
-                if (errorPayload.message) {
-                    let placeholderValues: any[] = [];
-
-                    for (let key in errorPayload) {
-                        if (key !== 'message') {
-                            placeholderValues.push(errorPayload[key]);
-                        }
-                    }
-
-                    return this._stringFormat(errorPayload.message, placeholderValues);
-                } else {
+                if (!errorPayload.message) {
                     return this.defaultMessages.unknownError;
                 }
+
+                let placeholderValues: any[] = Object.keys(errorPayload)
+                    .filter(key => key !== 'message')
+                    .map(key => errorPayload[key]);
+
+                return this._stringFormat(errorPayload.message, placeholderValues);
         }
     }
 
