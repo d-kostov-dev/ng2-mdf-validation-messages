@@ -21,6 +21,8 @@ exports.defaultConfig = {
         minNumber: 'Minimal value is {0}!',
         maxNumber: 'Maximal value is {0}!',
         noEmpty: 'Only blank spaces are not allowed!',
+        rangeLength: 'The input must be between {0} and {1} symbols long!',
+        range: 'The input must be between {0} and {1}!',
         unknownError: 'Unknown Error!',
     },
 };

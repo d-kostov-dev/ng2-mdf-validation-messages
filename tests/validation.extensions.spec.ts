@@ -424,4 +424,176 @@ describe('Testing The Validation Extensions', () => {
             expect(actual).toEqual(null);
         });
     });
+
+    describe('Testing "rangeLength" Validation', () => {
+        it('should return error with empty message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.rangeLength(5, 10)(control);
+
+            expect(actual).toEqual({
+                rangeLength: {
+                    rangeMin: 5,
+                    rangeMax: 10,
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message when value is longer', () => {
+            let control = new FormControl('abcabcabcabc');
+            let actual = ValidationExtensions.rangeLength(5, 10)(control);
+
+            expect(actual).toEqual({
+                rangeLength: {
+                    rangeMin: 5,
+                    rangeMax: 10,
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.rangeLength(5, 10, CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                rangeLength: {
+                    rangeMin: 5,
+                    rangeMax: 10,
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return null when exact min value', () => {
+            let control = new FormControl('abcde');
+            let actual = ValidationExtensions.rangeLength(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when exact max value', () => {
+            let control = new FormControl('abcdeabcde');
+            let actual = ValidationExtensions.rangeLength(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when value is in range', () => {
+            let control = new FormControl('abcdeabc');
+            let actual = ValidationExtensions.rangeLength(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.rangeLength(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.rangeLength(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+    describe('Testing "range" Validation', () => {
+        it('should return error with empty message', () => {
+            let control = new FormControl(4);
+            let actual = ValidationExtensions.range(5, 10)(control);
+
+            expect(actual).toEqual({
+                range: {
+                    rangeMin: 5,
+                    rangeMax: 10,
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message when value is longer', () => {
+            let control = new FormControl(11);
+            let actual = ValidationExtensions.range(5, 10)(control);
+
+            expect(actual).toEqual({
+                range: {
+                    rangeMin: 5,
+                    rangeMax: 10,
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message when value is string', () => {
+            let control = new FormControl('11');
+            let actual = ValidationExtensions.range(5, 10)(control);
+
+            expect(actual).toEqual({
+                range: {
+                    rangeMin: 5,
+                    rangeMax: 10,
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl(4);
+            let actual = ValidationExtensions.range(5, 10, CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                range: {
+                    rangeMin: 5,
+                    rangeMax: 10,
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return null when exact min value', () => {
+            let control = new FormControl(5);
+            let actual = ValidationExtensions.range(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when exact max value', () => {
+            let control = new FormControl(10);
+            let actual = ValidationExtensions.range(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when value is in range', () => {
+            let control = new FormControl(6);
+            let actual = ValidationExtensions.range(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when value is string', () => {
+            let control = new FormControl('6');
+            let actual = ValidationExtensions.range(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.range(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.range(5, 10)(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
 });

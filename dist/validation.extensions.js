@@ -167,6 +167,54 @@ var ValidationExtensions = (function () {
             return validationResult;
         };
     };
+    /**
+     * Requires the input length to be between specific range.
+     * @param min Required minimum length.
+     * @param max Required maximum length.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.rangeLength = function (min, max, message) {
+        if (message === void 0) { message = null; }
+        return function (control) {
+            if (forms_1.Validators.required(control)) {
+                return null;
+            }
+            if (control.value.length < min || control.value.length > max) {
+                return {
+                    rangeLength: {
+                        message: message,
+                        rangeMin: min,
+                        rangeMax: max,
+                    }
+                };
+            }
+            return null;
+        };
+    };
+    /**
+    * Requires the input value to be between specific range.
+    * @param min Required minimum value.
+    * @param max Required maximum value.
+    * @param message Custom error message that will be shown to the user.
+    */
+    ValidationExtensions.range = function (min, max, message) {
+        if (message === void 0) { message = null; }
+        return function (control) {
+            if (forms_1.Validators.required(control)) {
+                return null;
+            }
+            if (control.value < min || control.value > max) {
+                return {
+                    range: {
+                        message: message,
+                        rangeMin: min,
+                        rangeMax: max,
+                    }
+                };
+            }
+            return null;
+        };
+    };
     return ValidationExtensions;
 }());
 exports.ValidationExtensions = ValidationExtensions;

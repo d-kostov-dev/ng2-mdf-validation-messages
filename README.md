@@ -103,6 +103,8 @@ As you can see placeholders in the strings are supported. For this example, `Val
 * **minNumber:** 'Minimal value is {0}!',
 * **maxNumber:** 'Maximal value is {0}!',
 * **noEmpty:** 'Only blank spaces are not allowed!',
+* **rangeLength:** 'The input must be between {0} and {1} symbols long!',
+* **range:** 'The input must be between {0} and {1}!',
 * **unknownError:** 'Unknown Error!',
 
 ### Configure specific errors
@@ -132,8 +134,6 @@ The real "power" of this component is the ability to give custom error messages 
 
 ## TODOs
 ### Validation Extensions
-* Add range
-* Add rangeLength
 * Add equalTo (for passwords)
 * Add date
 * Add equal

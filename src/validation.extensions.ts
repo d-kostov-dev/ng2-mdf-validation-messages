@@ -178,8 +178,58 @@ export class ValidationExtensions {
         };
     }
 
-    // TODO: Add range
-    // TODO: Add rangeLength
+    /**
+     * Requires the input length to be between specific range.
+     * @param min Required minimum length.
+     * @param max Required maximum length.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static rangeLength(min: number, max: number, message: string = null): ValidatorFn {
+        return (control: AbstractControl): { [key: string]: any } => {
+            if (Validators.required(control)) {
+                return null;
+            }
+
+            if (control.value.length < min || control.value.length > max) {
+                return {
+                    rangeLength: {
+                        message: message,
+                        rangeMin: min,
+                        rangeMax: max,
+                    }
+                };
+            }
+
+            return null;
+        };
+    }
+
+     /**
+     * Requires the input value to be between specific range.
+     * @param min Required minimum value.
+     * @param max Required maximum value.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static range(min: number, max: number, message: string = null): ValidatorFn {
+        return (control: AbstractControl): { [key: string]: any } => {
+            if (Validators.required(control)) {
+                return null;
+            }
+
+            if (control.value < min || control.value > max) {
+                return {
+                    range: {
+                        message: message,
+                        rangeMin: min,
+                        rangeMax: max,
+                    }
+                };
+            }
+
+            return null;
+        };
+    }
+
     // TODO: Add equalTo (for passwords)
     // TODO: Add date
     // TODO: Add equal

@@ -16,5 +16,5 @@ export declare class MessageProvider {
      * @param text Text with placeholders. E.g: "Hello {0}"
      * @param params The params that will replace the placeholders. E.g: ['World'] or when single value only 'World'
      */
-    private _stringFormat(text, ...params);
+    private _stringFormat(text, params);
 }

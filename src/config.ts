@@ -13,6 +13,8 @@ export class DefaultErrorMessages {
     maxNumber: string;
     noEmpty: string;
     unknownError: string;
+    rangeLength: string;
+    range: string;
 }
 
 export const defaultConfig: ValidationMessagesConfiguration = {
@@ -26,6 +28,8 @@ export const defaultConfig: ValidationMessagesConfiguration = {
         minNumber: 'Minimal value is {0}!',
         maxNumber: 'Maximal value is {0}!',
         noEmpty: 'Only blank spaces are not allowed!',
+        rangeLength: 'The input must be between {0} and {1} symbols long!',
+        range: 'The input must be between {0} and {1}!',
         unknownError: 'Unknown Error!',
     },
 };

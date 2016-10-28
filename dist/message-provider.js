@@ -29,6 +29,10 @@ var MessageProvider = (function () {
                 return errorPayload.message ? errorPayload.message : this.defaultMessages.pattern;
             case 'noEmpty':
                 return errorPayload.message ? errorPayload.message : this.defaultMessages.noEmpty;
+            case 'rangeLength':
+                return errorPayload.message ? this._stringFormat(errorPayload.message, [errorPayload.rangeMin, errorPayload.rangeMax]) : this._stringFormat(this.defaultMessages.rangeLength, [errorPayload.rangeMin, errorPayload.rangeMax]);
+            case 'range':
+                return errorPayload.message ? this._stringFormat(errorPayload.message, [errorPayload.rangeMin, errorPayload.rangeMax]) : this._stringFormat(this.defaultMessages.range, [errorPayload.rangeMin, errorPayload.rangeMax]);
             default:
                 // TODO: Test this
                 if (errorPayload.message) {
@@ -50,14 +54,15 @@ var MessageProvider = (function () {
      * @param text Text with placeholders. E.g: "Hello {0}"
      * @param params The params that will replace the placeholders. E.g: ['World'] or when single value only 'World'
      */
-    MessageProvider.prototype._stringFormat = function (text) {
-        var params = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            params[_i - 1] = arguments[_i];
+    MessageProvider.prototype._stringFormat = function (text, params) {
+        if (params) {
+            if (!Array.isArray(params)) {
+                params = [params];
+            }
+            params.forEach(function (value, index) {
+                text = text.replace(new RegExp('\\{' + index + '\\}', 'g'), value);
+            });
         }
-        params.forEach(function (value, index) {
-            text = text.replace(new RegExp('\\{' + index + '\\}', 'g'), value);
-        });
         return text;
     };
     return MessageProvider;

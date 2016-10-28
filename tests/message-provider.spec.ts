@@ -4,6 +4,7 @@ import { MessageProvider } from '../src/message-provider';
 const messageProvider = new MessageProvider(defaultConfig.defaultErrorMessages);
 const CUSTOM_MESSAGE = 'Lorem ipsum';
 const CUSTOM_MESSAGE_WITH_PLACEHOLDER = 'Lorem {0} ipsum';
+const CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS = 'Lorem {0} ipsum {1}';
 
 describe('Testing The Message Provider', () => {
     describe('Testing required error messages', () => {
@@ -209,12 +210,70 @@ describe('Testing The Message Provider', () => {
             expect(actual).toEqual(expected);
         });
     });
+
+    describe('Testing rangeLength error messages', () => {
+        it('should throw error when null payload', () => {
+            expect(function () {
+                messageProvider.getErrorMessage('rangeLength', null);
+            }).toThrow();
+        });
+
+        it('should return default message whit data', () => {
+            let actual = messageProvider.getErrorMessage('rangeLength', { rangeMin: 5, rangeMax: 10 });
+            let expected = stringFormat(defaultConfig.defaultErrorMessages.rangeLength, [5, 10]);
+
+            console.log(actual);
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return custom message', () => {
+            let actual = messageProvider.getErrorMessage('rangeLength', { message: CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, rangeMin: 5, rangeMax: 10 });
+            let expected = stringFormat(CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, [5, 10]);
+
+            console.log(actual);
+
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('Testing range error messages', () => {
+        it('should throw error when null payload', () => {
+            expect(function () {
+                messageProvider.getErrorMessage('range', null);
+            }).toThrow();
+        });
+
+        it('should return default message whit data', () => {
+            let actual = messageProvider.getErrorMessage('range', { rangeMin: 5, rangeMax: 10 });
+            let expected = stringFormat(defaultConfig.defaultErrorMessages.range, [5, 10]);
+
+            console.log(actual);
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return custom message', () => {
+            let actual = messageProvider.getErrorMessage('range', { message: CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, rangeMin: 5, rangeMax: 10 });
+            let expected = stringFormat(CUSTOM_MESSAGE_WITH_MORE_PLACEHOLDERS, [5, 10]);
+
+            console.log(actual);
+
+            expect(actual).toEqual(expected);
+        });
+    });
 });
 
-function stringFormat(text: string, ...params: any[]): string {
-    params.forEach((value: any, index: number) => {
-        text = text.replace(new RegExp('\\{' + index + '\\}', 'g'), value);
-    });
+function stringFormat(text: string, params: any): string {
+    if (params) {
+        if (!Array.isArray(params)) {
+            params = [params];
+        }
+
+        params.forEach((value: any, index: number) => {
+            text = text.replace(new RegExp('\\{' + index + '\\}', 'g'), value);
+        });
+    }
 
     return text;
 }
