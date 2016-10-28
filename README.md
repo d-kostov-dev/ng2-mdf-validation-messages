@@ -18,7 +18,7 @@ Usage
 
 Import `Ng2MDFValidationMessagesModule` into your app's modules:
 
-``` typescript
+```TypeScript
 import { Ng2MDFValidationMessagesModule } from 'ng2-mdf-validation-messages';
 
 @NgModule({
@@ -75,7 +75,7 @@ export class AppComponent implements OnInit {
 ### Global error messages configuration.
 `ng2-mdf-validation-messages` comes with the option to configure globally the messages that the errors return and the class of the div where the error is displayed.
 
-``` typescript
+```TypeScript
 import { Ng2MDFValidationMessagesModule } from 'ng2-mdf-validation-messages';
 
 @NgModule({
