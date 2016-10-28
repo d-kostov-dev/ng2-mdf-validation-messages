@@ -15,6 +15,7 @@ export class DefaultErrorMessages {
     unknownError: string;
     rangeLength: string;
     range: string;
+    [key: string]: string;
 }
 
 export const defaultConfig: ValidationMessagesConfiguration = {
