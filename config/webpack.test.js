@@ -10,7 +10,7 @@
           {
               test: /\.ts$/,
               loaders: ['awesome-typescript-loader']
-          },
+          }
         ]
     }
-}
+};
