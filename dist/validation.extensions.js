@@ -10,15 +10,14 @@ var ValidationExtensions = (function () {
     ValidationExtensions.required = function (message) {
         if (message === void 0) { message = null; }
         return function (control) {
-            var validationResult = forms_1.Validators.required(control);
-            if (validationResult) {
-                return {
-                    'required': {
-                        message: message,
-                    }
-                };
+            if (!forms_1.Validators.required(control)) {
+                return null;
             }
-            return validationResult;
+            return {
+                required: {
+                    message: message,
+                }
+            };
         };
     };
     /**
@@ -31,16 +30,14 @@ var ValidationExtensions = (function () {
             if (forms_1.Validators.required(control)) {
                 return null;
             }
-            if (control.value.trim() === '') {
-                return {
-                    noEmpty: {
-                        message: message,
-                    }
-                };
-            }
-            else {
+            if (control.value.trim() !== '') {
                 return null;
             }
+            return {
+                noEmpty: {
+                    message: message,
+                }
+            };
         };
     };
     /**
@@ -93,14 +90,12 @@ var ValidationExtensions = (function () {
             if (control.value >= min) {
                 return null;
             }
-            else {
-                return {
-                    minNumber: {
-                        requiredRange: min,
-                        message: message,
-                    },
-                };
-            }
+            return {
+                minNumber: {
+                    requiredRange: min,
+                    message: message,
+                },
+            };
         };
     };
     /**
@@ -117,14 +112,12 @@ var ValidationExtensions = (function () {
             if (control.value <= max) {
                 return null;
             }
-            else {
-                return {
-                    maxNumber: {
-                        requiredRange: max,
-                        message: message,
-                    },
-                };
-            }
+            return {
+                maxNumber: {
+                    requiredRange: max,
+                    message: message,
+                },
+            };
         };
     };
     /**
@@ -140,13 +133,11 @@ var ValidationExtensions = (function () {
             if (control.value.match(emailRegExp)) {
                 return null;
             }
-            else {
-                return {
-                    email: {
-                        message: message,
-                    }
-                };
-            }
+            return {
+                email: {
+                    message: message,
+                }
+            };
         };
     };
     /**
@@ -179,16 +170,16 @@ var ValidationExtensions = (function () {
             if (forms_1.Validators.required(control)) {
                 return null;
             }
-            if (control.value.length < min || control.value.length > max) {
-                return {
-                    rangeLength: {
-                        message: message,
-                        rangeMin: min,
-                        rangeMax: max,
-                    }
-                };
+            if (control.value.length >= min && control.value.length <= max) {
+                return null;
             }
-            return null;
+            return {
+                rangeLength: {
+                    message: message,
+                    rangeMin: min,
+                    rangeMax: max,
+                }
+            };
         };
     };
     /**
@@ -203,16 +194,16 @@ var ValidationExtensions = (function () {
             if (forms_1.Validators.required(control)) {
                 return null;
             }
-            if (control.value < min || control.value > max) {
-                return {
-                    range: {
-                        message: message,
-                        rangeMin: min,
-                        rangeMax: max,
-                    }
-                };
+            if (control.value >= min && control.value <= max) {
+                return null;
             }
-            return null;
+            return {
+                range: {
+                    message: message,
+                    rangeMin: min,
+                    rangeMax: max,
+                }
+            };
         };
     };
     return ValidationExtensions;
