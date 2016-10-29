@@ -5,7 +5,7 @@ The idea behind `ng2-mdf-validation-messages` is to make your Angular 2 forms va
 No external dependencies except Angular 2 itself.
 
 ### Angular 2 Version
-This is currently written with version 2.1.0-beta.0, but it should work with 2.0.0 even RC6.
+This is currently written with version 2.1.2, but it should work with 2.0.0 even RC6.
 
 ## Quick start
 
