@@ -6,7 +6,7 @@
     System.config({
         paths: {
             // paths serve as alias
-            'npm:': 'node_modules/',
+            'npm:': 'node_modules/'
         },
         // map tells the System loader where to look for things
         map: {
@@ -37,7 +37,7 @@
             'ng2-mdf-validation-messages': {
                 main: './index.js',
                 defaultExtension: 'js'
-            },
+            }
         }
     });
 })(this);

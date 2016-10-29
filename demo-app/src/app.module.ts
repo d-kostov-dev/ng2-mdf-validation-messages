@@ -11,7 +11,8 @@ import { Ng2MDFValidationMessagesModule } from 'ng2-mdf-validation-messages';
         Ng2MDFValidationMessagesModule,
         //Ng2MDFValidationMessagesModule.globalConfig({ defaultErrorMessages: { required: 'Default Custom Required Message' } }),
         FormsModule,
-        ReactiveFormsModule],
+        ReactiveFormsModule
+    ],
     declarations: [AppComponent],
     bootstrap: [AppComponent]
 })
