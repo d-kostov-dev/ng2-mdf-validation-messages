@@ -11,42 +11,32 @@ var MessageProvider = (function () {
      * @param errorPayload Provides custom message and/or the required value. E.g. for ValidationExtensions.minNumber(18) the payload will contain the value "18"
      */
     MessageProvider.prototype.getErrorMessage = function (errorType, errorPayload) {
+        var errorMessageActual = errorPayload.message || this.defaultMessages[errorType];
         // TODO: Throw exception on inadequate errorPayload;
         switch (errorType) {
             case 'required':
-                return errorPayload.message ? errorPayload.message : this.defaultMessages.required;
             case 'email':
-                return errorPayload.message ? errorPayload.message : this.defaultMessages.email;
-            case 'minlength':
-                return errorPayload.message ? this._stringFormat(errorPayload.message, errorPayload.requiredLength) : this._stringFormat(this.defaultMessages.minLength, errorPayload.requiredLength);
-            case 'maxlength':
-                return errorPayload.message ? this._stringFormat(errorPayload.message, errorPayload.requiredLength) : this._stringFormat(this.defaultMessages.maxLength, errorPayload.requiredLength);
-            case 'minNumber':
-                return errorPayload.message ? this._stringFormat(errorPayload.message, errorPayload.requiredRange) : this._stringFormat(this.defaultMessages.minNumber, errorPayload.requiredRange);
-            case 'maxNumber':
-                return errorPayload.message ? this._stringFormat(errorPayload.message, errorPayload.requiredRange) : this._stringFormat(this.defaultMessages.maxNumber, errorPayload.requiredRange);
             case 'pattern':
-                return errorPayload.message ? errorPayload.message : this.defaultMessages.pattern;
             case 'noEmpty':
-                return errorPayload.message ? errorPayload.message : this.defaultMessages.noEmpty;
+                return errorMessageActual;
+            case 'minlength':
+                return this._stringFormat(errorMessageActual || this.defaultMessages.minLength, errorPayload.requiredLength);
+            case 'maxlength':
+                return this._stringFormat(errorMessageActual || this.defaultMessages.maxLength, errorPayload.requiredLength);
+            case 'minNumber':
+            case 'maxNumber':
+                return this._stringFormat(errorMessageActual, errorPayload.requiredRange);
             case 'rangeLength':
-                return errorPayload.message ? this._stringFormat(errorPayload.message, [errorPayload.rangeMin, errorPayload.rangeMax]) : this._stringFormat(this.defaultMessages.rangeLength, [errorPayload.rangeMin, errorPayload.rangeMax]);
             case 'range':
-                return errorPayload.message ? this._stringFormat(errorPayload.message, [errorPayload.rangeMin, errorPayload.rangeMax]) : this._stringFormat(this.defaultMessages.range, [errorPayload.rangeMin, errorPayload.rangeMax]);
+                return this._stringFormat(errorMessageActual, [errorPayload.rangeMin, errorPayload.rangeMax]);
             default:
-                // TODO: Test this
-                if (errorPayload.message) {
-                    var placeholderValues = [];
-                    for (var key in errorPayload) {
-                        if (key !== 'message') {
-                            placeholderValues.push(errorPayload[key]);
-                        }
-                    }
-                    return this._stringFormat(errorPayload.message, placeholderValues);
-                }
-                else {
+                if (!errorPayload.message) {
                     return this.defaultMessages.unknownError;
                 }
+                var placeholderValues = Object.keys(errorPayload)
+                    .filter(function (key) { return key !== 'message'; })
+                    .map(function (key) { return errorPayload[key]; });
+                return this._stringFormat(errorPayload.message, placeholderValues);
         }
     };
     /**

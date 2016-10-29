@@ -132,6 +132,24 @@ The real "power" of this component is the ability to give custom error messages 
 }
 ```
 
+#### Custom Validation Extensions
+You can create your custom validations following this example:
+
+```TypeScript
+static VALIDATION_NAME(...PROPS_IF_NEEDED, message: string): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } => {
+        // VALIDATION LOGIC
+
+       return {
+            ERROR_TYPE: {
+                message: message,
+                //...PROPS (will be used for placeholders)
+            }
+        };
+    };
+}
+```
+
 ## TODOs
 ### Validation Extensions
 * Add equalTo (for passwords)
@@ -140,30 +158,6 @@ The real "power" of this component is the ability to give custom error messages 
 * Add url
 * Add compose
 * Add number
-
-### Functionality
-Currently users can create their custom validations, but this functionality is not well tested yet. Example for custom validation:
-
-```TypeScript
-static maxNumber(max: number, message: string /* Message is requried for custom validations */): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
-        if (Validators.required(control)) {
-            return null;
-        }
-
-        if (control.value <= max) {
-            return null;
-        }
-
-        return {
-            maxNumber: {
-                requiredRange: max,
-                message: message
-            }
-        };
-    };
-}
-```
 
 ## Development
 
