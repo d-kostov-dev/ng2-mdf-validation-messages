@@ -9,17 +9,15 @@ export class ValidationExtensions {
      */
     static required(message: string = null): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } => {
-            let validationResult = Validators.required(control);
-
-            if (validationResult) {
-                return {
-                    'required': {
-                        message: message,
-                    }
-                };
+            if (!Validators.required(control)) {
+                return null;
             }
 
-            return validationResult;
+            return {
+                required: {
+                    message: message,
+                }
+            };
         };
     }
 
@@ -33,15 +31,15 @@ export class ValidationExtensions {
                 return null;
             }
 
-            if (control.value.trim() === '') {
-                return {
-                    noEmpty: {
-                        message: message,
-                    }
-                };
-            } else {
+            if (control.value.trim() !== '') {
                 return null;
             }
+
+            return {
+                noEmpty: {
+                    message: message,
+                }
+            };
         };
     }
 
@@ -100,14 +98,14 @@ export class ValidationExtensions {
 
             if (control.value >= min) {
                 return null;
-            } else {
-                return {
-                    minNumber: {
-                        requiredRange: min,
-                        message: message,
-                    },
-                };
             }
+
+            return {
+                minNumber: {
+                    requiredRange: min,
+                    message: message,
+                },
+            };
         };
     }
 
@@ -124,14 +122,14 @@ export class ValidationExtensions {
 
             if (control.value <= max) {
                 return null;
-            } else {
-                return {
-                    maxNumber: {
-                        requiredRange: max,
-                        message: message,
-                    },
-                };
             }
+
+            return {
+                maxNumber: {
+                    requiredRange: max,
+                    message: message,
+                },
+            };
         };
     }
 
@@ -147,13 +145,13 @@ export class ValidationExtensions {
 
             if (control.value.match(emailRegExp)) {
                 return null;
-            } else {
-                return {
-                    email: {
-                        message: message,
-                    }
-                };
             }
+
+            return {
+                email: {
+                    message: message,
+                }
+            };
         };
     }
 
@@ -190,17 +188,17 @@ export class ValidationExtensions {
                 return null;
             }
 
-            if (control.value.length < min || control.value.length > max) {
-                return {
-                    rangeLength: {
-                        message: message,
-                        rangeMin: min,
-                        rangeMax: max,
-                    }
-                };
+            if (control.value.length >= min && control.value.length <= max) {
+                return null;
             }
 
-            return null;
+            return {
+                rangeLength: {
+                    message: message,
+                    rangeMin: min,
+                    rangeMax: max,
+                }
+            };
         };
     }
 
@@ -216,17 +214,17 @@ export class ValidationExtensions {
                 return null;
             }
 
-            if (control.value < min || control.value > max) {
-                return {
-                    range: {
-                        message: message,
-                        rangeMin: min,
-                        rangeMax: max,
-                    }
-                };
+            if (control.value >= min && control.value <= max) {
+                return null;
             }
 
-            return null;
+            return {
+                range: {
+                    message: message,
+                    rangeMin: min,
+                    rangeMax: max,
+                }
+            };
         };
     }
 
