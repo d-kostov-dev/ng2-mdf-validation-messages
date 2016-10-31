@@ -21,6 +21,8 @@ export class MessageProvider {
             case 'pattern':
             case 'noEmpty':
             case 'digit':
+            case 'url':
+            case 'date':
                 return errorMessageActual;
 
             case 'minlength':

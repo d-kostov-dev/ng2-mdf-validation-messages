@@ -16,6 +16,8 @@ export declare class DefaultErrorMessages {
     range: string;
     digit: string;
     equal: string;
+    url: string;
+    date: string;
     [key: string]: string;
 }
 export declare const defaultConfig: ValidationMessagesConfiguration;

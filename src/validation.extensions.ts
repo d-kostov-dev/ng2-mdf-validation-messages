@@ -1,6 +1,7 @@
 ﻿import { AbstractControl, Validators, ValidatorFn } from '@angular/forms';
 
 const emailRegExp: RegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+const urlRegExp: RegExp = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i;
 
 export class ValidationExtensions {
     /**
@@ -274,8 +275,52 @@ export class ValidationExtensions {
         };
     }
 
+    /**
+     * Requires the input to be a valid URL. Urls without http, https or ftp are invalid. 
+     * @param message Custom error message that will be shown to the user.
+     */
+    static url(message: string = null): ValidatorFn {
+        return (control: AbstractControl): { [key: string]: any } => {
+            if (Validators.required(control)) {
+                return null;
+            }
+
+            if (control.value.match(urlRegExp)) {
+                return null;
+            }
+
+            return {
+                url: {
+                    message: message,
+                }
+            };
+        };
+    }
+
+    /**
+     * Requires the input to be a valid date.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static date(message: string = null): ValidatorFn {
+        return (control: AbstractControl): { [key: string]: any } => {
+            if (Validators.required(control)) {
+                return null;
+            }
+
+            let parsedDate = new Date(control.value);
+
+            if (parsedDate.toString() !== 'Invalid Date' && !isNaN(parsedDate.valueOf())) {
+                return null;
+            }
+
+            return {
+                date: {
+                    message: message,
+                }
+            };
+        };
+    }
+
     // TODO: Add equalTo (for passwords)
-    // TODO: Add date
-    // TODO: Add url
     // TODO: Add Compose
 }

@@ -19,6 +19,8 @@ var MessageProvider = (function () {
             case 'pattern':
             case 'noEmpty':
             case 'digit':
+            case 'url':
+            case 'date':
                 return errorMessageActual;
             case 'minlength':
                 return this._stringFormat(errorMessageActual || this.defaultMessages.minLength, errorPayload.requiredLength);

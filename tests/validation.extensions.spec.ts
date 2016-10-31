@@ -728,4 +728,227 @@ describe('Testing The Validation Extensions', () => {
             expect(actual).toEqual(null);
         });
     });
+
+    describe('Testing "url" Validation', () => {
+        it('should return error with empty message for www.abc', () => {
+            let control = new FormControl('www.abc');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message for abc.com', () => {
+            let control = new FormControl('abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message for http://www.', () => {
+            let control = new FormControl('http://www.');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl('www.abc');
+            let actual = ValidationExtensions.url(CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return error with empty message for www.abc.com', () => {
+            let control = new FormControl('www.abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return null with http', () => {
+            let control = new FormControl('http://www.abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with sub domain', () => {
+            let control = new FormControl('http://www.abc.abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with https', () => {
+            let control = new FormControl('https://www.abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with http and /index.php', () => {
+            let control = new FormControl('http://www.abc.com/index.php');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with https and /index.php', () => {
+            let control = new FormControl('https://www.abc.com/index.php');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with ftp', () => {
+            let control = new FormControl('ftp://www.abc.com/index.php');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        })
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+    describe('Testing "date" Validation', () => {
+        it('should return error with empty message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual({
+                date: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message', () => {
+            let control = new FormControl('abc-1');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual({
+                date: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message', () => {
+            let control = new FormControl('foo-bar 2014');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual({
+                date: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.date(CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                date: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        // This works on chrome but not on PhantomJS
+        //it('should return null for 10-10-2016', () => {
+        //    let control = new FormControl('10-10-2016');
+        //    let actual = ValidationExtensions.date()(control);
+
+        //    expect(actual).toEqual(null);
+        //});
+
+        it('should return null for 2016-10-10', () => {
+            let control = new FormControl('2016-10-10');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for 10/10/2016', () => {
+            let control = new FormControl('10/10/2016');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for 2016/10/10', () => {
+            let control = new FormControl('2016/10/10');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for Aug 9, 1995', () => {
+            let control = new FormControl('Aug 9, 1995');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for Wed, 09 Aug 1995 00:00:00 GMT', () => {
+            let control = new FormControl('Wed, 09 Aug 1995 00:00:00 GMT');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for Thu, 01 Jan 1970 00:00:00 GMT-0400', () => {
+            let control = new FormControl('Thu, 01 Jan 1970 00:00:00 GMT-0400');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
 });

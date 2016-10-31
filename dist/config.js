@@ -25,6 +25,8 @@ exports.defaultConfig = {
         range: 'The input must be between {0} and {1}!',
         digit: 'The input must be a number!',
         equal: 'The input must be equal to {0}!',
+        url: 'The input must be a valid URL!',
+        date: 'The input must be a valid date!',
         unknownError: 'Unknown Error!',
     },
 };

@@ -107,6 +107,8 @@ As you can see placeholders in the strings are supported. For this example, `Val
 * **range:** 'The input must be between {0} and {1}!',
 * **digit:** 'The input must be a number!',
 * **equal:** 'The input must be equal to {0}!',
+* **url:** 'The input must be a valid URL!',
+* **date:** 'The input must be a valid date!',
 * **unknownError:** 'Unknown Error!',
 
 ### Configure specific errors
@@ -155,8 +157,6 @@ static VALIDATION_NAME(...PROPS_IF_NEEDED, message: string): ValidatorFn {
 ## TODOs
 ### Validation Extensions
 * Add equalTo (for passwords)
-* Add date
-* Add url
 * Add compose
 
 ## Development

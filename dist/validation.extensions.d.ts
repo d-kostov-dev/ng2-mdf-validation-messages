@@ -70,4 +70,14 @@ export declare class ValidationExtensions {
      * @param message Custom error message that will be shown to the user.
      */
     static equal(comparer: any, message?: string): ValidatorFn;
+    /**
+     * Requires the input to be a valid URL. Urls without http, https or ftp are invalid.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static url(message?: string): ValidatorFn;
+    /**
+     * Requires the input to be a valid date.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static date(message?: string): ValidatorFn;
 }

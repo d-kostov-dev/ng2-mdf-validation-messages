@@ -327,6 +327,50 @@ describe('Testing The Message Provider', () => {
             expect(actual).toEqual(expected);
         });
     });
+
+    describe('Testing url error messages', () => {
+        it('should throw error when null payload', () => {
+            expect(function () {
+                messageProvider.getErrorMessage('url', null);
+            }).toThrow();
+        });
+
+        it('should return default message empty payload', () => {
+            let actual = messageProvider.getErrorMessage('url', '');
+            let expected = defaultConfig.defaultErrorMessages.url;
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return custom message', () => {
+            let actual = messageProvider.getErrorMessage('url', { message: CUSTOM_MESSAGE });
+            let expected = CUSTOM_MESSAGE;
+
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('Testing date error messages', () => {
+        it('should throw error when null payload', () => {
+            expect(function () {
+                messageProvider.getErrorMessage('date', null);
+            }).toThrow();
+        });
+
+        it('should return default message empty payload', () => {
+            let actual = messageProvider.getErrorMessage('date', '');
+            let expected = defaultConfig.defaultErrorMessages.date;
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return custom message', () => {
+            let actual = messageProvider.getErrorMessage('date', { message: CUSTOM_MESSAGE });
+            let expected = CUSTOM_MESSAGE;
+
+            expect(actual).toEqual(expected);
+        });
+    });
 });
 
 function stringFormat(text: string, params?: any): string {
