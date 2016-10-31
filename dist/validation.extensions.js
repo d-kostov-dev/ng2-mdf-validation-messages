@@ -206,6 +206,48 @@ var ValidationExtensions = (function () {
             };
         };
     };
+    /**
+     * Requires the input value to be a number.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.digit = function (message) {
+        if (message === void 0) { message = null; }
+        return function (control) {
+            if (forms_1.Validators.required(control)) {
+                return null;
+            }
+            if (!isNaN(control.value) && isFinite(control.value)) {
+                return null;
+            }
+            return {
+                digit: {
+                    message: message
+                }
+            };
+        };
+    };
+    /**
+     * Requires the input to euqal specific value and type.
+     * @param comparer The value that the input must match.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.equal = function (comparer, message) {
+        if (message === void 0) { message = null; }
+        return function (control) {
+            if (forms_1.Validators.required(control)) {
+                return null;
+            }
+            if (control.value === comparer) {
+                return null;
+            }
+            return {
+                equal: {
+                    message: message,
+                    comparer: comparer
+                }
+            };
+        };
+    };
     return ValidationExtensions;
 }());
 exports.ValidationExtensions = ValidationExtensions;

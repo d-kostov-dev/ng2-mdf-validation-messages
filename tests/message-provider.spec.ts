@@ -283,6 +283,50 @@ describe('Testing The Message Provider', () => {
             expect(actual).toEqual(expected);
         });
     });
+
+    describe('Testing digit error messages', () => {
+        it('should throw error when null payload', () => {
+            expect(function () {
+                messageProvider.getErrorMessage('digit', null);
+            }).toThrow();
+        });
+
+        it('should return default message empty payload', () => {
+            let actual = messageProvider.getErrorMessage('digit', '');
+            let expected = defaultConfig.defaultErrorMessages.digit;
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return custom message', () => {
+            let actual = messageProvider.getErrorMessage('digit', { message: CUSTOM_MESSAGE });
+            let expected = CUSTOM_MESSAGE;
+
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('Testing equal error messages', () => {
+        it('should throw error when null payload', () => {
+            expect(function () {
+                messageProvider.getErrorMessage('equal', null);
+            }).toThrow();
+        });
+
+        it('should return default message when payload without message', () => {
+            let actual = messageProvider.getErrorMessage('equal', { comparer: 'abc' });
+            let expected = stringFormat(defaultConfig.defaultErrorMessages.equal, 'abc');
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return custom message', () => {
+            let actual = messageProvider.getErrorMessage('equal', { message: CUSTOM_MESSAGE_WITH_PLACEHOLDER, comparer: 'abc' });
+            let expected = stringFormat(CUSTOM_MESSAGE_WITH_PLACEHOLDER, 'abc');
+
+            expect(actual).toEqual(expected);
+        });
+    });
 });
 
 function stringFormat(text: string, params?: any): string {

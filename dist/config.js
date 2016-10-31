@@ -23,6 +23,8 @@ exports.defaultConfig = {
         noEmpty: 'Only blank spaces are not allowed!',
         rangeLength: 'The input must be between {0} and {1} symbols long!',
         range: 'The input must be between {0} and {1}!',
+        digit: 'The input must be a number!',
+        equal: 'The input must be equal to {0}!',
         unknownError: 'Unknown Error!',
     },
 };

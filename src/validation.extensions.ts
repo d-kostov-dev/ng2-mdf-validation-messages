@@ -228,10 +228,54 @@ export class ValidationExtensions {
         };
     }
 
+    /**
+     * Requires the input value to be a number.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static digit(message: string = null): ValidatorFn {
+        return (control: AbstractControl): { [key: string]: any } => {
+            if (Validators.required(control)) {
+                return null;
+            }
+
+            if (!isNaN(control.value) && isFinite(control.value)) {
+                return null;
+            }
+
+            return {
+                digit: {
+                    message: message
+                }
+            };
+        };
+    }
+
+    /**
+     * Requires the input to euqal specific value and type.
+     * @param comparer The value that the input must match.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static equal(comparer: any, message: string = null): ValidatorFn {
+        return (control: AbstractControl): { [key: string]: any } => {
+            if (Validators.required(control)) {
+                return null;
+            }
+
+            if (control.value === comparer) {
+                return null;
+            }
+
+            return {
+                equal: {
+                    message: message,
+                    comparer: comparer
+                }
+            };
+        };
+    }
+
     // TODO: Add equalTo (for passwords)
     // TODO: Add date
-    // TODO: Add equal
     // TODO: Add url
     // TODO: Add Compose
-    // TODO: Add number
 }

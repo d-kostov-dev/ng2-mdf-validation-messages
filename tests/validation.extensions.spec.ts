@@ -596,4 +596,136 @@ describe('Testing The Validation Extensions', () => {
             expect(actual).toEqual(null);
         });
     });
+
+    describe('Testing "digit" Validation', () => {
+        it('should return error with empty message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual({
+                digit: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.digit(CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                digit: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return null when integer', () => {
+            let control = new FormControl(5);
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when float', () => {
+            let control = new FormControl(5.5);
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when integer as string', () => {
+            let control = new FormControl('5');
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when float as string', () => {
+            let control = new FormControl('5.5');
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+    describe('Testing "equal" Validation', () => {
+        it('should return error with empty message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.equal('123')(control);
+
+            expect(actual).toEqual({
+                equal: {
+                    message: null,
+                    comparer: '123',
+                }
+            });
+        });
+
+        it('should return error with empty message when not the same type', () => {
+            let control = new FormControl(123);
+            let actual = ValidationExtensions.equal('123')(control);
+
+            expect(actual).toEqual({
+                equal: {
+                    message: null,
+                    comparer: '123',
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.equal('123', CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                equal: {
+                    message: CUSTOM_MESSAGE,
+                    comparer: '123',
+                }
+            });
+        });
+
+        it('should return null when valid', () => {
+            let control = new FormControl(123);
+            let actual = ValidationExtensions.equal(123)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when valid', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.equal('abc')(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.equal('abc')(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.equal('abc')(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
 });

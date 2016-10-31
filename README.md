@@ -105,6 +105,8 @@ As you can see placeholders in the strings are supported. For this example, `Val
 * **noEmpty:** 'Only blank spaces are not allowed!',
 * **rangeLength:** 'The input must be between {0} and {1} symbols long!',
 * **range:** 'The input must be between {0} and {1}!',
+* **digit:** 'The input must be a number!',
+* **equal:** 'The input must be equal to {0}!',
 * **unknownError:** 'Unknown Error!',
 
 ### Configure specific errors
@@ -154,10 +156,8 @@ static VALIDATION_NAME(...PROPS_IF_NEEDED, message: string): ValidatorFn {
 ### Validation Extensions
 * Add equalTo (for passwords)
 * Add date
-* Add equal
 * Add url
 * Add compose
-* Add number
 
 ## Development
 

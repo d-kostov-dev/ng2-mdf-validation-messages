@@ -18,6 +18,7 @@ var MessageProvider = (function () {
             case 'email':
             case 'pattern':
             case 'noEmpty':
+            case 'digit':
                 return errorMessageActual;
             case 'minlength':
                 return this._stringFormat(errorMessageActual || this.defaultMessages.minLength, errorPayload.requiredLength);
@@ -29,6 +30,8 @@ var MessageProvider = (function () {
             case 'rangeLength':
             case 'range':
                 return this._stringFormat(errorMessageActual, [errorPayload.rangeMin, errorPayload.rangeMax]);
+            case 'equal':
+                return this._stringFormat(errorMessageActual, errorPayload.comparer);
             default:
                 if (!errorPayload.message) {
                     return this.defaultMessages.unknownError;

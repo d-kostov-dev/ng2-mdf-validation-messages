@@ -59,4 +59,15 @@ export declare class ValidationExtensions {
     * @param message Custom error message that will be shown to the user.
     */
     static range(min: number, max: number, message?: string): ValidatorFn;
+    /**
+     * Requires the input value to be a number.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static digit(message?: string): ValidatorFn;
+    /**
+     * Requires the input to euqal specific value and type.
+     * @param comparer The value that the input must match.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static equal(comparer: any, message?: string): ValidatorFn;
 }

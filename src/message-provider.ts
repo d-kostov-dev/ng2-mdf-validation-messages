@@ -20,6 +20,7 @@ export class MessageProvider {
             case 'email':
             case 'pattern':
             case 'noEmpty':
+            case 'digit':
                 return errorMessageActual;
 
             case 'minlength':
@@ -35,6 +36,9 @@ export class MessageProvider {
             case 'rangeLength':
             case 'range':
                 return this._stringFormat(errorMessageActual, [errorPayload.rangeMin, errorPayload.rangeMax]);
+
+            case 'equal':
+                return this._stringFormat(errorMessageActual, errorPayload.comparer);
 
             default:
                 if (!errorPayload.message) {
