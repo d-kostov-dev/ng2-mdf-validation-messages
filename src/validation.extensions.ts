@@ -1,4 +1,4 @@
-﻿import { AbstractControl, Validators, ValidatorFn } from '@angular/forms';
+﻿import { AbstractControl, Validators, ValidatorFn, FormGroup } from '@angular/forms';
 
 const emailRegExp: RegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 const urlRegExp: RegExp = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i;
@@ -203,12 +203,12 @@ export class ValidationExtensions {
         };
     }
 
-     /**
-     * Requires the input value to be between specific range.
-     * @param min Required minimum value.
-     * @param max Required maximum value.
-     * @param message Custom error message that will be shown to the user.
-     */
+    /**
+    * Requires the input value to be between specific range.
+    * @param min Required minimum value.
+    * @param max Required maximum value.
+    * @param message Custom error message that will be shown to the user.
+    */
     static range(min: number, max: number, message: string = null): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
@@ -321,6 +321,62 @@ export class ValidationExtensions {
         };
     }
 
-    // TODO: Add equalTo (for passwords)
+    /**
+     * Requires all values in a group to be the same.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static areEqual(message: string = null): ValidatorFn {
+        return (group: FormGroup): { [key: string]: any } => {
+            if (ValidationExtensions._areGroupInputValuesEqual(group)) {
+                return null;
+            }
+
+            return {
+                areEqual: {
+                    message: message,
+                }
+            };
+        };
+    }
+
+    /**
+     * Requires all values in a group to be equal. Like the 'areEqual' validation extension, but with specific passwords message.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static passwords(message: string = null): ValidatorFn {
+        return (group: FormGroup): { [key: string]: any } => {
+            if (ValidationExtensions._areGroupInputValuesEqual(group)) {
+                return null;
+            }
+
+            return {
+                passwords: {
+                    message: message,
+                }
+            };
+        };
+    }
+
+    private static _areGroupInputValuesEqual(group: FormGroup): boolean {
+        let keys: string[] = Object.keys(group.controls);
+        let keysLength = keys.length;
+
+        if (!keysLength) {
+            return true;
+        }
+
+        let initialControl = group.controls[keys[0]];
+
+        for (let i = 1; i < keysLength; i++) {
+            let currentKey = keys[i];
+
+            if (initialControl.value !== group.controls[currentKey].value) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // TODO: Add Compose
 }

@@ -1,10 +1,10 @@
 import { OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { ValidationMessagesConfiguration } from './config';
 import { MessageProvider } from './message-provider';
 export declare class ValidationMessageComponent implements OnInit {
     private customConfig;
-    control: FormControl;
+    control: AbstractControl;
     class: string;
     config: ValidationMessagesConfiguration;
     messageProvider: MessageProvider;

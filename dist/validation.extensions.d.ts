@@ -80,4 +80,15 @@ export declare class ValidationExtensions {
      * @param message Custom error message that will be shown to the user.
      */
     static date(message?: string): ValidatorFn;
+    /**
+     * Requires all values in a group to be the same.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static areEqual(message?: string): ValidatorFn;
+    /**
+     * Requires all values in a group to be equal. Like the 'areEqual' validation extension, but with specific passwords message.
+     * @param message Custom error message that will be shown to the user.
+     */
+    static passwords(message?: string): ValidatorFn;
+    private static _areGroupInputValuesEqual(group);
 }

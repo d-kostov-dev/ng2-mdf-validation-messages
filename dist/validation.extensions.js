@@ -290,6 +290,55 @@ var ValidationExtensions = (function () {
             };
         };
     };
+    /**
+     * Requires all values in a group to be the same.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.areEqual = function (message) {
+        if (message === void 0) { message = null; }
+        return function (group) {
+            if (ValidationExtensions._areGroupInputValuesEqual(group)) {
+                return null;
+            }
+            return {
+                areEqual: {
+                    message: message,
+                }
+            };
+        };
+    };
+    /**
+     * Requires all values in a group to be equal. Like the 'areEqual' validation extension, but with specific passwords message.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.passwords = function (message) {
+        if (message === void 0) { message = null; }
+        return function (group) {
+            if (ValidationExtensions._areGroupInputValuesEqual(group)) {
+                return null;
+            }
+            return {
+                passwords: {
+                    message: message,
+                }
+            };
+        };
+    };
+    ValidationExtensions._areGroupInputValuesEqual = function (group) {
+        var keys = Object.keys(group.controls);
+        var keysLength = keys.length;
+        if (!keysLength) {
+            return true;
+        }
+        var initialControl = group.controls[keys[0]];
+        for (var i = 1; i < keysLength; i++) {
+            var currentKey = keys[i];
+            if (initialControl.value !== group.controls[currentKey].value) {
+                return false;
+            }
+        }
+        return true;
+    };
     return ValidationExtensions;
 }());
 exports.ValidationExtensions = ValidationExtensions;

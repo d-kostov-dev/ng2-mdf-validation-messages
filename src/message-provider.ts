@@ -23,6 +23,8 @@ export class MessageProvider {
             case 'digit':
             case 'url':
             case 'date':
+            case 'areEqual':
+            case 'passwords':
                 return errorMessageActual;
 
             case 'minlength':

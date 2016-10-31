@@ -18,6 +18,8 @@ export declare class DefaultErrorMessages {
     equal: string;
     url: string;
     date: string;
+    areEqual: string;
+    passwords: string;
     [key: string]: string;
 }
 export declare const defaultConfig: ValidationMessagesConfiguration;

@@ -21,6 +21,8 @@ var MessageProvider = (function () {
             case 'digit':
             case 'url':
             case 'date':
+            case 'areEqual':
+            case 'passwords':
                 return errorMessageActual;
             case 'minlength':
                 return this._stringFormat(errorMessageActual || this.defaultMessages.minLength, errorPayload.requiredLength);
