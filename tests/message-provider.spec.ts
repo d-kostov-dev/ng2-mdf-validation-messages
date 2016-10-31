@@ -371,6 +371,64 @@ describe('Testing The Message Provider', () => {
             expect(actual).toEqual(expected);
         });
     });
+
+    describe('Testing areEqual error messages', () => {
+        it('should throw error when null payload', () => {
+            expect(function () {
+                messageProvider.getErrorMessage('areEqual', null);
+            }).toThrow();
+        });
+
+        it('should return default message empty payload', () => {
+            let actual = messageProvider.getErrorMessage('areEqual', '');
+            let expected = defaultConfig.defaultErrorMessages.areEqual;
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return default message object payload', () => {
+            let actual = messageProvider.getErrorMessage('areEqual', {});
+            let expected = defaultConfig.defaultErrorMessages.areEqual;
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return custom message', () => {
+            let actual = messageProvider.getErrorMessage('areEqual', { message: CUSTOM_MESSAGE });
+            let expected = CUSTOM_MESSAGE;
+
+            expect(actual).toEqual(expected);
+        });
+    });
+
+    describe('Testing passwords error messages', () => {
+        it('should throw error when null payload', () => {
+            expect(function () {
+                messageProvider.getErrorMessage('passwords', null);
+            }).toThrow();
+        });
+
+        it('should return default message empty payload', () => {
+            let actual = messageProvider.getErrorMessage('passwords', '');
+            let expected = defaultConfig.defaultErrorMessages.passwords;
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return default message object payload', () => {
+            let actual = messageProvider.getErrorMessage('passwords', {});
+            let expected = defaultConfig.defaultErrorMessages.passwords;
+
+            expect(actual).toEqual(expected);
+        });
+
+        it('should return custom message', () => {
+            let actual = messageProvider.getErrorMessage('passwords', { message: CUSTOM_MESSAGE });
+            let expected = CUSTOM_MESSAGE;
+
+            expect(actual).toEqual(expected);
+        });
+    });
 });
 
 function stringFormat(text: string, params?: any): string {

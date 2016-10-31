@@ -109,6 +109,8 @@ As you can see placeholders in the strings are supported. For this example, `Val
 * **equal:** 'The input must be equal to {0}!',
 * **url:** 'The input must be a valid URL!',
 * **date:** 'The input must be a valid date!',
+* **areEqual:** 'The input values in the group must match!',
+* **passwords:** 'Both fields "Password" and "Confirm Password" must match!',
 * **unknownError:** 'Unknown Error!',
 
 ### Configure specific errors
@@ -155,8 +157,6 @@ static VALIDATION_NAME(...PROPS_IF_NEEDED, message: string): ValidatorFn {
 ```
 
 ## TODOs
-### Validation Extensions
-* Add equalTo (for passwords)
 * Add compose
 
 ## Development

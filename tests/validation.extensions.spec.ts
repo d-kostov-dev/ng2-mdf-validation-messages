@@ -1,4 +1,4 @@
-﻿import { FormControl } from '@angular/forms';
+﻿import { FormControl, FormGroup } from '@angular/forms';
 
 import { ValidationExtensions } from '../src/validation.extensions.ts';
 
@@ -951,4 +951,196 @@ describe('Testing The Validation Extensions', () => {
             expect(actual).toEqual(null);
         });
     });
+
+    describe('Testing "areEqual" Validation', () => {
+        it('should return error with empty message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual({
+                areEqual: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let car = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar,
+                car: car
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual({
+                areEqual: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.areEqual(CUSTOM_MESSAGE)(group);
+
+            expect(actual).toEqual({
+                areEqual: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return null when valid', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when many valid', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('foo');
+            let car = new FormControl('foo');
+
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar,
+                car: car
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when only one control', () => {
+            let foo = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+    describe('Testing "passwords" Validation', () => {
+        it('should return error with empty message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual({
+                passwords: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let car = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar,
+                car: car
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual({
+                passwords: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.passwords(CUSTOM_MESSAGE)(group);
+
+            expect(actual).toEqual({
+                passwords: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return null when valid', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when many valid', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('foo');
+            let car = new FormControl('foo');
+
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar,
+                car: car
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when only one control', () => {
+            let foo = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+
 });
