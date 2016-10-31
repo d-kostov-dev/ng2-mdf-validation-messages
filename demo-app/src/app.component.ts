@@ -14,6 +14,9 @@ export class AppComponent implements OnInit {
     username: FormControl;
     age: FormControl;
     email: FormControl;
+    password: FormControl;
+    confirmPassword: FormControl;
+    passwordsGroup: FormGroup;
 
     constructor(private formBuilder: FormBuilder) {}
 
@@ -30,12 +33,30 @@ export class AppComponent implements OnInit {
             ValidationExtensions.email()
         ]);
 
+        this.password = this.formBuilder.control('', [
+            ValidationExtensions.required('Password is required.'),
+            ValidationExtensions.minLength(3, 'Password must be more than 3 symbols.'),
+            ValidationExtensions.maxLength(20, 'Password must be less than 20 symbols.'),
+        ]);
+
+        this.confirmPassword = this.formBuilder.control('', [
+            ValidationExtensions.required('Confirm Password is required.'),
+            ValidationExtensions.minLength(3, 'Password must be more than 3 symbols.'),
+            ValidationExtensions.maxLength(20, 'Password must be less than 20 symbols.'),
+        ]);
+
+        this.passwordsGroup = this.formBuilder.group({
+            password: this.password,
+            confirmPassword: this.confirmPassword,
+        }, { validator: ValidationExtensions.passwords() });
+
         this.editorForm = this.formBuilder.group({
             firstName: this.firstName,
             lastName: this.lastName,
             username: this.username,
             age: this.age,
             email: this.email,
+            passwordsGroup: this.passwordsGroup
         });
     }
 

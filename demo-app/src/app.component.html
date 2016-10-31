@@ -47,6 +47,26 @@
                     <span class="help-block">Required Email input with default settings.</span>
                 </div>
             </div>
+
+            <div formGroupName="passwordsGroup">
+                <ng2-mdf-validation-message [control]="passwordsGroup" *ngIf="!password.pristine && !confirmPassword.pristine"></ng2-mdf-validation-message>
+
+                <div class="form-group">
+                    <label for="password" class="col-md-12">Password</label>
+                    <div class="col-md-12">
+                        <input formControlName="password" type="password" class="form-control" id="password">
+                        <ng2-mdf-validation-message [control]="password" *ngIf="!password.pristine"></ng2-mdf-validation-message>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword" class="col-md-12">Confirm Password</label>
+                    <div class="col-md-12">
+                        <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword">
+                        <ng2-mdf-validation-message [control]="confirmPassword" *ngIf="!confirmPassword.pristine"></ng2-mdf-validation-message>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-12">

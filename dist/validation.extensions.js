@@ -1,5 +1,6 @@
 var forms_1 = require('@angular/forms');
 var emailRegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+var urlRegExp = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i;
 var ValidationExtensions = (function () {
     function ValidationExtensions() {
     }
@@ -205,6 +206,138 @@ var ValidationExtensions = (function () {
                 }
             };
         };
+    };
+    /**
+     * Requires the input value to be a number.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.digit = function (message) {
+        if (message === void 0) { message = null; }
+        return function (control) {
+            if (forms_1.Validators.required(control)) {
+                return null;
+            }
+            if (!isNaN(control.value) && isFinite(control.value)) {
+                return null;
+            }
+            return {
+                digit: {
+                    message: message
+                }
+            };
+        };
+    };
+    /**
+     * Requires the input to euqal specific value and type.
+     * @param comparer The value that the input must match.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.equal = function (comparer, message) {
+        if (message === void 0) { message = null; }
+        return function (control) {
+            if (forms_1.Validators.required(control)) {
+                return null;
+            }
+            if (control.value === comparer) {
+                return null;
+            }
+            return {
+                equal: {
+                    message: message,
+                    comparer: comparer
+                }
+            };
+        };
+    };
+    /**
+     * Requires the input to be a valid URL. Urls without http, https or ftp are invalid.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.url = function (message) {
+        if (message === void 0) { message = null; }
+        return function (control) {
+            if (forms_1.Validators.required(control)) {
+                return null;
+            }
+            if (control.value.match(urlRegExp)) {
+                return null;
+            }
+            return {
+                url: {
+                    message: message,
+                }
+            };
+        };
+    };
+    /**
+     * Requires the input to be a valid date.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.date = function (message) {
+        if (message === void 0) { message = null; }
+        return function (control) {
+            if (forms_1.Validators.required(control)) {
+                return null;
+            }
+            var parsedDate = new Date(control.value);
+            if (parsedDate.toString() !== 'Invalid Date' && !isNaN(parsedDate.valueOf())) {
+                return null;
+            }
+            return {
+                date: {
+                    message: message,
+                }
+            };
+        };
+    };
+    /**
+     * Requires all values in a group to be the same.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.areEqual = function (message) {
+        if (message === void 0) { message = null; }
+        return function (group) {
+            if (ValidationExtensions._areGroupInputValuesEqual(group)) {
+                return null;
+            }
+            return {
+                areEqual: {
+                    message: message,
+                }
+            };
+        };
+    };
+    /**
+     * Requires all values in a group to be equal. Like the 'areEqual' validation extension, but with specific passwords message.
+     * @param message Custom error message that will be shown to the user.
+     */
+    ValidationExtensions.passwords = function (message) {
+        if (message === void 0) { message = null; }
+        return function (group) {
+            if (ValidationExtensions._areGroupInputValuesEqual(group)) {
+                return null;
+            }
+            return {
+                passwords: {
+                    message: message,
+                }
+            };
+        };
+    };
+    ValidationExtensions._areGroupInputValuesEqual = function (group) {
+        var keys = Object.keys(group.controls);
+        var keysLength = keys.length;
+        if (!keysLength) {
+            return true;
+        }
+        var initialControl = group.controls[keys[0]];
+        for (var i = 1; i < keysLength; i++) {
+            var currentKey = keys[i];
+            if (initialControl.value !== group.controls[currentKey].value) {
+                return false;
+            }
+        }
+        return true;
     };
     return ValidationExtensions;
 }());

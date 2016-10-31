@@ -1,5 +1,5 @@
 ﻿import { Component, Input, Optional, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 import { ValidationMessagesConfiguration, defaultConfig } from './config';
 import { MessageProvider } from './message-provider';
@@ -9,7 +9,7 @@ import { MessageProvider } from './message-provider';
     template: '<span *ngIf="errorMessage !== null" [class]="config.class">{{errorMessage}}</span>'
 })
 export class ValidationMessageComponent implements OnInit {
-    @Input() control: FormControl;
+    @Input() control: AbstractControl;
     @Input() class: string;
 
     config: ValidationMessagesConfiguration;

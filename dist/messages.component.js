@@ -46,7 +46,7 @@ var ValidationMessageComponent = (function () {
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', forms_1.FormControl)
+        __metadata('design:type', forms_1.AbstractControl)
     ], ValidationMessageComponent.prototype, "control", void 0);
     __decorate([
         core_1.Input(), 

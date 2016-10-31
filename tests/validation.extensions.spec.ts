@@ -1,4 +1,4 @@
-﻿import { FormControl } from '@angular/forms';
+﻿import { FormControl, FormGroup } from '@angular/forms';
 
 import { ValidationExtensions } from '../src/validation.extensions.ts';
 
@@ -596,4 +596,551 @@ describe('Testing The Validation Extensions', () => {
             expect(actual).toEqual(null);
         });
     });
+
+    describe('Testing "digit" Validation', () => {
+        it('should return error with empty message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual({
+                digit: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.digit(CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                digit: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return null when integer', () => {
+            let control = new FormControl(5);
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when float', () => {
+            let control = new FormControl(5.5);
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when integer as string', () => {
+            let control = new FormControl('5');
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when float as string', () => {
+            let control = new FormControl('5.5');
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.digit()(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+    describe('Testing "equal" Validation', () => {
+        it('should return error with empty message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.equal('123')(control);
+
+            expect(actual).toEqual({
+                equal: {
+                    message: null,
+                    comparer: '123',
+                }
+            });
+        });
+
+        it('should return error with empty message when not the same type', () => {
+            let control = new FormControl(123);
+            let actual = ValidationExtensions.equal('123')(control);
+
+            expect(actual).toEqual({
+                equal: {
+                    message: null,
+                    comparer: '123',
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.equal('123', CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                equal: {
+                    message: CUSTOM_MESSAGE,
+                    comparer: '123',
+                }
+            });
+        });
+
+        it('should return null when valid', () => {
+            let control = new FormControl(123);
+            let actual = ValidationExtensions.equal(123)(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when valid', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.equal('abc')(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.equal('abc')(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.equal('abc')(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+    describe('Testing "url" Validation', () => {
+        it('should return error with empty message for www.abc', () => {
+            let control = new FormControl('www.abc');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message for abc.com', () => {
+            let control = new FormControl('abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message for http://www.', () => {
+            let control = new FormControl('http://www.');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl('www.abc');
+            let actual = ValidationExtensions.url(CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return error with empty message for www.abc.com', () => {
+            let control = new FormControl('www.abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual({
+                url: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return null with http', () => {
+            let control = new FormControl('http://www.abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with sub domain', () => {
+            let control = new FormControl('http://www.abc.abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with https', () => {
+            let control = new FormControl('https://www.abc.com');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with http and /index.php', () => {
+            let control = new FormControl('http://www.abc.com/index.php');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with https and /index.php', () => {
+            let control = new FormControl('https://www.abc.com/index.php');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null with ftp', () => {
+            let control = new FormControl('ftp://www.abc.com/index.php');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        })
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.url()(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+    describe('Testing "date" Validation', () => {
+        it('should return error with empty message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual({
+                date: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message', () => {
+            let control = new FormControl('abc-1');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual({
+                date: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message', () => {
+            let control = new FormControl('foo-bar 2014');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual({
+                date: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let control = new FormControl('abc');
+            let actual = ValidationExtensions.date(CUSTOM_MESSAGE)(control);
+
+            expect(actual).toEqual({
+                date: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        // This works on chrome but not on PhantomJS
+        //it('should return null for 10-10-2016', () => {
+        //    let control = new FormControl('10-10-2016');
+        //    let actual = ValidationExtensions.date()(control);
+
+        //    expect(actual).toEqual(null);
+        //});
+
+        it('should return null for 2016-10-10', () => {
+            let control = new FormControl('2016-10-10');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for 10/10/2016', () => {
+            let control = new FormControl('10/10/2016');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for 2016/10/10', () => {
+            let control = new FormControl('2016/10/10');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for Aug 9, 1995', () => {
+            let control = new FormControl('Aug 9, 1995');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for Wed, 09 Aug 1995 00:00:00 GMT', () => {
+            let control = new FormControl('Wed, 09 Aug 1995 00:00:00 GMT');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null for Thu, 01 Jan 1970 00:00:00 GMT-0400', () => {
+            let control = new FormControl('Thu, 01 Jan 1970 00:00:00 GMT-0400');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when empty input', () => {
+            let control = new FormControl('');
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when null input', () => {
+            let control = new FormControl(null);
+            let actual = ValidationExtensions.date()(control);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+    describe('Testing "areEqual" Validation', () => {
+        it('should return error with empty message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual({
+                areEqual: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let car = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar,
+                car: car
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual({
+                areEqual: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.areEqual(CUSTOM_MESSAGE)(group);
+
+            expect(actual).toEqual({
+                areEqual: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return null when valid', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when many valid', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('foo');
+            let car = new FormControl('foo');
+
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar,
+                car: car
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when only one control', () => {
+            let foo = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+            });
+
+            let actual = ValidationExtensions.areEqual()(group);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+    describe('Testing "passwords" Validation', () => {
+        it('should return error with empty message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual({
+                passwords: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with empty message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let car = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar,
+                car: car
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual({
+                passwords: {
+                    message: null,
+                }
+            });
+        });
+
+        it('should return error with custom message', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('bar');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.passwords(CUSTOM_MESSAGE)(group);
+
+            expect(actual).toEqual({
+                passwords: {
+                    message: CUSTOM_MESSAGE,
+                }
+            });
+        });
+
+        it('should return null when valid', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when many valid', () => {
+            let foo = new FormControl('foo');
+            let bar = new FormControl('foo');
+            let car = new FormControl('foo');
+
+            let group = new FormGroup({
+                foo: foo,
+                bar: bar,
+                car: car
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual(null);
+        });
+
+        it('should return null when only one control', () => {
+            let foo = new FormControl('foo');
+            let group = new FormGroup({
+                foo: foo,
+            });
+
+            let actual = ValidationExtensions.passwords()(group);
+
+            expect(actual).toEqual(null);
+        });
+    });
+
+
 });

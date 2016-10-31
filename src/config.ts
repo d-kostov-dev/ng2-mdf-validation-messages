@@ -15,6 +15,12 @@ export class DefaultErrorMessages {
     unknownError: string;
     rangeLength: string;
     range: string;
+    digit: string;
+    equal: string;
+    url: string;
+    date: string;
+    areEqual: string;
+    passwords: string;
     [key: string]: string;
 }
 
@@ -31,6 +37,12 @@ export const defaultConfig: ValidationMessagesConfiguration = {
         noEmpty: 'Only blank spaces are not allowed!',
         rangeLength: 'The input must be between {0} and {1} symbols long!',
         range: 'The input must be between {0} and {1}!',
+        digit: 'The input must be a number!',
+        equal: 'The input must be equal to {0}!',
+        url: 'The input must be a valid URL!',
+        date: 'The input must be a valid date!',
+        areEqual: 'The values in the group must match!',
+        passwords: 'Both fields "Password" and "Confirm Password" must match!',
         unknownError: 'Unknown Error!',
     },
 };
