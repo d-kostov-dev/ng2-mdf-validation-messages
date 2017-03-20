@@ -22,7 +22,8 @@ export class ValidationMessageComponent implements OnInit {
             this.config = Object.assign({}, defaultConfig, customConfig);
         }
 
-        this.messageProvider = new MessageProvider(this.config.defaultErrorMessages);
+        const errorMessages = Object.assign({}, defaultConfig.defaultErrorMessages, this.config.defaultErrorMessages);
+        this.messageProvider = new MessageProvider(errorMessages);
     }
 
     ngOnInit(): void {
