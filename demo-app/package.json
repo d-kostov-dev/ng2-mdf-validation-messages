@@ -14,6 +14,7 @@
     "@angular/platform-browser": "2.1.2",
     "@angular/platform-browser-dynamic": "2.1.2",
     "core-js": "2.4.1",
+    "ng2-mdf-validation-messages": "^0.1.5",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.0-rc.1",
     "systemjs": "0.19.40",
@@ -23,6 +24,6 @@
     "concurrently": "3.1.0",
     "lite-server": "2.2.2",
     "typescript": "2.0.6",
-    "typings":"1.5.0"
+    "typings": "1.5.0"
   }
 }

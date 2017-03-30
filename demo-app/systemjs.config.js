@@ -35,7 +35,7 @@
                 defaultExtension: 'js'
             },
             'ng2-mdf-validation-messages': {
-                main: './index.js',
+                main: './dist/index.js',
                 defaultExtension: 'js'
             }
         }
