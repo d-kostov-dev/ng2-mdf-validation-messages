@@ -161,7 +161,7 @@ export class ValidationExtensions {
      * @param pattern The required pattern.
      * @param message Custom error message that will be shown to the user.
      */
-    static pattern(pattern: string, message: string = null): ValidatorFn {
+    static pattern(pattern: string | RegExp, message: string = null): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } => {
             if (Validators.required(control)) {
                 return null;
